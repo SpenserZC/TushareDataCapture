@@ -52,3 +52,5 @@ spring:
         login-username: admin
         login-password: 123456
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=1
+tushare:
+  token: 08812da961c3edd56e0a31e999b893e2b926d144b1c1df9cd2237e16
