@@ -28,5 +28,4 @@ public class TuShareConfig {
         headers.put("Content-Type","application/json");
         return headers;
     }
-
 }
