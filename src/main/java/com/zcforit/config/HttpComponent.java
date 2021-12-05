@@ -1,4 +1,4 @@
-package com.zcforit.utils;
+package com.zcforit.config;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -14,12 +14,12 @@ import java.util.Map;
 /**
  * @author zhang cheng
  * @version 1.0
- * @description: TODO
+ * @description: 发送http消息
  * @date 2021/12/3 17:31
  */
 @Slf4j
 @Component
-public class HttpUtils {
+public class HttpComponent {
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -54,6 +54,7 @@ public class HttpUtils {
      */
     public JSONObject post(String url, Map<String, String> headerMap, JSONObject jsonObject) {
         log.info("send request: " + url);
+        log.info("send request body: " + jsonObject);
         HttpHeaders httpHeaders = new HttpHeaders();
         for (Map.Entry<String, String> stringStringEntry : headerMap.entrySet()) {
             httpHeaders.add(stringStringEntry.getKey(), stringStringEntry.getValue());

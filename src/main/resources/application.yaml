@@ -11,9 +11,9 @@ http:
     validateAfterInactivity: 2000
 spring:
   datasource:
-    url: jdbc:mysql://doris01:9030/dc_ads
-    username: ads_server
-    password: ads_server
+    url: jdbc:mysql://localhost:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: zc
+    password: qwer5678
     driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
       db-type: mysql
@@ -53,4 +53,6 @@ spring:
         login-password: 123456
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=1
 tushare:
-  token: 08812da961c3edd56e0a31e999b893e2b926d144b1c1df9cd2237e16
+  token1: 08812da961c3edd56e0a31e999b893e2b926d144b1c1df9cd2237e16
+  token2: 325114407edee775609e7b370eac76e9ad9558798958fbd92ea0eead
+  url: "http://api.waditu.com"
