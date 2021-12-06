@@ -1,6 +1,11 @@
-package com.zcforit.entity.basic;
+package com.zcforit.entity.base;
 
-import com.zcforit.dto.BaseRequest;
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * @author zhang cheng
@@ -8,8 +13,11 @@ import com.zcforit.dto.BaseRequest;
  * @description: 股票列表
  * @date : 2021-12-05 10:21
  */
-public class StockBasicEntity{
-    private String tsCode;	//str	Y	TS代码
+@Data
+@Entity
+@Table(name="basic_stock")
+public class StockBasicEntity implements Serializable {
+    @Id
     private String symbol;	//str	Y	股票代码
     private String name;	//str	Y	股票名称
     private String area;	//str	Y	地域

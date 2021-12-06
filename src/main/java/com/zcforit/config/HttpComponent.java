@@ -52,7 +52,7 @@ public class HttpComponent {
      * @param jsonObject 请求参数 JSON
      * @return JSONObject
      */
-    public JSONObject post(String url, Map<String, String> headerMap, JSONObject jsonObject) {
+    public JSONObject post(String url, Map<String, String> headerMap, String jsonObject) {
         log.info("send request: " + url);
         log.info("send request body: " + jsonObject);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -60,6 +60,7 @@ public class HttpComponent {
             httpHeaders.add(stringStringEntry.getKey(), stringStringEntry.getValue());
         }
         HttpEntity httpEntity = new HttpEntity(jsonObject, httpHeaders);
+        log.info("response: " + httpEntity);
         JSONObject result = restTemplate.postForObject(url, httpEntity, JSONObject.class);
         return result;
     }

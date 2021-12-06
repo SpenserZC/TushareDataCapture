@@ -1,4 +1,4 @@
-package com.zcforit.dto.basic;
+package com.zcforit.dto.base;
 
 import com.zcforit.dto.BaseRequest;
 import lombok.Builder;

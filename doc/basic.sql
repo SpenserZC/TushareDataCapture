@@ -1,11 +1,11 @@
 DROP TABLE IF EXISTS basic_stock;
 CREATE TABLE IF NOT EXISTS basic_stock(
     symbol char(10) not null primary key comment "股票代码",
-    name char(20)	comment "股票名称",
+    name char(50)	comment "股票名称",
 	area char(20)	comment "地域",
 	industry char(30)	comment "所属行业",
-	fullname char(10)	comment "股票全称",
-	enname char(10)	comment "英文全称",
+	fullname char(100)	comment "股票全称",
+	enname char(100)	comment "英文全称",
 	cnspell char(20)	comment "拼音缩写",
 	market char(10)	comment "市场类型（主板/创业板/科创板/CDR）",
 	exchange char(10)	comment "交易所代码",

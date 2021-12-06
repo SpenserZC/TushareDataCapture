@@ -19,7 +19,7 @@ import java.util.Map;
 public class TuShareConfig {
     @Value("${tushare.url}")
     private String url;
-    @Value("${tushare.token2}")
+    @Value("${tushare.token1}")
     private String token;
 
     public Map<String,String> headerMap(){
