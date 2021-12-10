@@ -66,7 +66,8 @@ public class TuShareUtils {
         Class<?> clazz = o.getClass();
         Field[] fields = clazz.getDeclaredFields();
         for (int i = 0; i <fields.length; i++) {
-            if(i==0) sb.append(CommenUtils.toUnderlineCase(fields[i].getName()));
+            if("id".equals(fields[i].getName()))continue;
+            if(sb.length()==0) sb.append(CommenUtils.toUnderlineCase(fields[i].getName()));
             else sb.append(",").append(CommenUtils.toUnderlineCase(fields[i].getName()));
         }
         return sb.toString();

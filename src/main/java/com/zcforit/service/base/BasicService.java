@@ -35,7 +35,6 @@ public class BasicService {
 
     public List<StockBasicEntity> getBaseStock(BaseRequest dto){
         JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
-        System.out.println(result);
         List<StockBasicEntity> stockBasicEntities = null;
         try {
             stockBasicEntities= TuShareUtils.analyzeTSResult(result, new StockBasicEntity());
@@ -54,6 +53,18 @@ public class BasicService {
             e.printStackTrace();
             return false;
         }
+    }
+
+
+    public <T> List<T> getTuShareData(BaseRequest dto,T t){
+        JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
+        List<T> tList = null;
+        try {
+            tList= TuShareUtils.analyzeTSResult(result, t);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tList;
     }
 
 

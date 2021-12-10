@@ -4,7 +4,9 @@ import com.zcforit.config.TuShareConfig;
 import com.zcforit.dto.BaseRequest;
 import com.zcforit.dto.base.StockBasicDTO;
 
+import com.zcforit.dto.quotation.DailyInfoDTO;
 import com.zcforit.entity.base.StockBasicEntity;
+import com.zcforit.entity.quotation.DailyInfoEntity;
 import com.zcforit.service.base.BasicService;
 import com.zcforit.utils.TuShareUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +33,28 @@ public class BasicController implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        StockBasicDTO dto = StockBasicDTO.builder()
-                .apiName("stock_basic")
-                .build();
-        BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockBasicEntity(), config.getToken());
-        List<StockBasicEntity> baseStock = basicService.getBaseStock(baseRequest);
-        System.out.println(basicService.saveBaseStock(baseStock));
+//        loadStockBasic();
+        loadDaily();
         System.exit(0);
     }
+
+    public void loadStockBasic(){
+        StockBasicDTO dto = new StockBasicDTO();
+        BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockBasicEntity(), config.getToken());
+        List<StockBasicEntity> baseStock = basicService.getTuShareData(baseRequest,new StockBasicEntity());
+        System.out.println(baseStock);
+//        basicService.saveBaseStock(baseStock);
+    }
+
+    public void loadDaily(){
+        DailyInfoDTO dto = new DailyInfoDTO();
+        dto.setTsCode("000001.SZ");
+        dto.setStartDate("20211201");
+        dto.setEndDate("20211209");
+        BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new DailyInfoEntity(), config.getToken());
+        List<DailyInfoEntity> baseStock = basicService.getTuShareData(baseRequest,new DailyInfoEntity() );
+        System.out.println(baseStock);
+    }
+
+
 }

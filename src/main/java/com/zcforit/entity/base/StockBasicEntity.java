@@ -15,9 +15,10 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name="basic_stock")
+@Table(name="stock_basic")
 public class StockBasicEntity implements Serializable {
     @Id
+    private String tsCode; //股票代码
     private String symbol;	//str	Y	股票代码
     private String name;	//str	Y	股票名称
     private String area;	//str	Y	地域
