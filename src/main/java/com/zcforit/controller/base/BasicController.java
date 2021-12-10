@@ -53,6 +53,7 @@ public class BasicController implements ApplicationRunner {
         dto.setEndDate("20211209");
         BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new DailyInfoEntity(), config.getToken());
         List<DailyInfoEntity> baseStock = basicService.getTuShareData(baseRequest,new DailyInfoEntity() );
+        basicService.saveToMySql(baseStock,"DailyInfoDao");
         System.out.println(baseStock);
     }
 

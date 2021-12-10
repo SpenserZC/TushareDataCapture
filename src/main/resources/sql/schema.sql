@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS stock_basic(
     delist_date char(10)	comment "退市日期",
     is_hs char(2)	comment "是否沪深港通标的，N否 H沪股通 S深股通"
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "股票信息表";
-
+-- 创建上市公司
 CREATE TABLE IF NOT EXISTS stock_company(
     ts_code char(10) comment "股票代码",
     exchange char(10) comment "交易所代码 ，SSE上交所 SZSE深交所",
@@ -34,6 +34,24 @@ CREATE TABLE IF NOT EXISTS stock_company(
     main_business TEXT(1000) comment "主要业务及产品",
     business_scope TEXT(1000) comment "经营范围"
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "上市公司基本信息表";
+
+--行情数据
+-- 创建日线行情
+CREATE TABLE IF NOT EXISTS stock_quotation_daily(
+ 	id int primary key auto_increment,
+    ts_code  varchar(10) comment "股票代码",
+	trade_date datetime comment "交易日期",
+	`open`  float comment "开盘价",
+	high  float comment "最高价",
+	low  float comment "最低价",
+	`close`  float comment "收盘价",
+	pre_close  float comment "昨收价",
+	`change` float comment "涨跌额",
+	pct_chg  float comment "涨跌幅 （未复权，如果是复权请用 通用行情接口 ）",
+	vol  float comment "成交量 （手）",
+	amount  float comment "成交额 （千元）"
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "K线日线表";
+
 
 
 
