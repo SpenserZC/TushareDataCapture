@@ -11,6 +11,7 @@ import com.zcforit.entity.base.StockBasicEntity;
 import com.zcforit.repository.base.StockBasicRepository;
 import com.zcforit.utils.CommenUtils;
 import com.zcforit.utils.TuShareUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.List;
  * @description: 基础股票信息
  * @date : 2021-12-05 10:37
  */
+@Slf4j
 @Service
 public class BasicService {
     @Autowired
@@ -61,7 +63,6 @@ public class BasicService {
     public <T> boolean saveToMySql(List<T> lists,String beanName){
         try{
             JpaRepository repository =(JpaRepository)  ApplicationContextHelper.getBean(beanName);
-            System.out.println(repository);
             if(repository!=null)
                 repository.saveAll(lists);
             return true;
@@ -78,6 +79,7 @@ public class BasicService {
         try {
             tList= TuShareUtils.analyzeTSResult(result, t);
         } catch (Exception e) {
+            log.info(result.toJSONString());
             e.printStackTrace();
         }
         return tList;
