@@ -8,14 +8,18 @@ import com.zcforit.config.TuShareConfig;
 import com.zcforit.dto.BaseRequest;
 import com.zcforit.dto.BaseResult;
 import com.zcforit.entity.base.StockBasicEntity;
-import com.zcforit.repository.base.StockBasicRepository;
+import com.zcforit.entity.base.TradeCalEntity;
+import com.zcforit.entity.error.ErrorEntity;
 import com.zcforit.utils.CommenUtils;
 import com.zcforit.utils.TuShareUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,32 +36,8 @@ public class BasicService {
     @Autowired
     TuShareConfig tuShare;
 
-    @Autowired
-    StockBasicRepository stockBasicRepository;
-
     private String url="http://api.waditu.com";
 
-    public List<StockBasicEntity> getBaseStock(BaseRequest dto){
-        JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
-        List<StockBasicEntity> stockBasicEntities = null;
-        try {
-            stockBasicEntities= TuShareUtils.analyzeTSResult(result, new StockBasicEntity());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return stockBasicEntities;
-    }
-
-    public boolean saveBaseStock(List<StockBasicEntity> lists){
-        try{
-            List<StockBasicEntity> stockBasicEntities = stockBasicRepository.saveAll(lists);
-            return true;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
 
 
     public <T> boolean saveToMySql(List<T> lists,String beanName){
@@ -65,6 +45,7 @@ public class BasicService {
             JpaRepository repository =(JpaRepository)  ApplicationContextHelper.getBean(beanName);
             if(repository!=null)
                 repository.saveAll(lists);
+            else log.info("找不到对应的bean");
             return true;
         }
         catch (Exception e){
@@ -73,17 +54,80 @@ public class BasicService {
         }
     }
 
-    public <T> List<T> getTuShareData(BaseRequest dto,T t){
+    public <T> List<T> getTuShareData(BaseRequest dto,T t) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
         JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
-        List<T> tList = null;
-        try {
-            tList= TuShareUtils.analyzeTSResult(result, t);
-        } catch (Exception e) {
-            log.info(result.toJSONString());
-            e.printStackTrace();
-        }
+        List<T> tList = TuShareUtils.analyzeTSResult(result, t);
         return tList;
     }
 
+    /**
+     * 通过日历拉取数据
+     * @param t
+     * @param e
+     * @param all
+     * @param <T>
+     * @param <E>
+     * @throws InterruptedException
+     */
+    public <T,E>void loadByCal(T t,E e,List<TradeCalEntity> all) throws InterruptedException {
+        int failCnt = 0;
+        for (int i = 0; i < all.size(); i++) {
+            BaseRequest baseRequest = null;
+            try {
+                Field tradeDate = t.getClass().getDeclaredField("tradeDate");
+                tradeDate.setAccessible(true);
+                tradeDate.set(t,all.get(i).getCalDate());
+                baseRequest = TuShareUtils.transBaseRequest(t, e, tuShare.getToken());
+                List<E> res = getTuShareData(baseRequest,e);
+                if(!res.isEmpty()){
+                    saveToMySql(res,e.getClass().getSimpleName().replace("Entity","Dao"));
+                    log.info(all.get(i).getCalDate()+" 股市数据拉取存储完成");
+                }
+                Thread.sleep(200l);
+                if(failCnt!=0){failCnt=0;}
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                if(failCnt<3){
+                    failCnt++;
+                    i=i-1;
+                    Thread.sleep(30000l);
+                }else{
+                    ErrorEntity errorEntity = new ErrorEntity();
+                    errorEntity.setApiName(baseRequest.getApiName());
+                    errorEntity.setKey(all.get(i).getCalDate());
+                    errorEntity.setExceptionInfo(exception.getMessage());
+                    List<ErrorEntity> errorEntities = new ArrayList<>();
+                    errorEntities.add(errorEntity);
+                    saveToMySql(errorEntities,"ErrorDao");
+                }
+            }
+        }
+        log.info("数据拉取完成");
+    }
 
+    public <T,E>void loadByDay(T t,E e,String date) throws InterruptedException {
+            BaseRequest baseRequest = null;
+            try {
+                Field tradeDate = t.getClass().getDeclaredField("tradeDate");
+                tradeDate.setAccessible(true);
+                tradeDate.set(t,date);
+                baseRequest = TuShareUtils.transBaseRequest(t, e, tuShare.getToken());
+                List<E> res = getTuShareData(baseRequest,e);
+                if(!res.isEmpty()){
+                    saveToMySql(res,e.getClass().getSimpleName().replace("Entity","Dao"));
+                    log.info(date+" 股市数据拉取存储完成");
+                }
+                Thread.sleep(200l);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                    ErrorEntity errorEntity = new ErrorEntity();
+                    errorEntity.setApiName(baseRequest.getApiName());
+                    errorEntity.setKey(date);
+                    errorEntity.setExceptionInfo(exception.getMessage());
+                    List<ErrorEntity> errorEntities = new ArrayList<>();
+                    errorEntities.add(errorEntity);
+                    saveToMySql(errorEntities,"ErrorDao");
+            }
+        log.info("数据拉取完成");
+    }
 }

@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  * @description: 操作数据库
  * @date 2021/12/6 16:51
  */
-@Repository
-public interface StockBasicRepository extends JpaRepository<StockBasicEntity,String> {
+@Repository("StockBasicDao")
+public interface StockBasicDao extends JpaRepository<StockBasicEntity,String> {
 }

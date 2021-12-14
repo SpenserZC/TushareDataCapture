@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@Table(name="stock_company")
+@Table(name="stock_base_company")
 public class StockCompanyEntity {
     @Id
     private String tsCode; //股票代码
@@ -30,7 +30,7 @@ public class StockCompanyEntity {
     private String website; //公司主页
     private String email; //电子邮件
     private String office; //办公室
-    private Integer employees; //员工人数
+    private String employees; //员工人数
     private String mainBusiness; //主要业务及产品
     private String businessScope; //经营范围
 }

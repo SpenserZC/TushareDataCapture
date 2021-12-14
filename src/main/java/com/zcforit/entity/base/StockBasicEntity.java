@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @Entity
-@Table(name="stock_basic")
+@Table(name="stock_base_basic")
 public class StockBasicEntity implements Serializable {
     @Id
     private String tsCode; //股票代码
