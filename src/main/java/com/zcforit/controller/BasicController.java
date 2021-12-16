@@ -35,7 +35,7 @@ import java.util.List;
  * @date : 2021-12-05 11:01
  */
 @Slf4j
-@Controller
+//@Controller
 public class BasicController implements ApplicationRunner {
     @Autowired
     BasicService basicService;
