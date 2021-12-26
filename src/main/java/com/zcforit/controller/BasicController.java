@@ -111,16 +111,27 @@ public class BasicController implements ApplicationRunner {
         log.info("周K 近10年数据拉取完成");
     }
 
+    /**
+     * 每日指标
+     * @throws InterruptedException
+     */
     public void loadDailyIndicator() throws InterruptedException {
         DailyInfoDTO dto = new DailyInfoDTO();
         dto.setApiName("daily_basic");
         basicService.loadByCal(dto, new DailyIndicatorEntity(),tradeCalDao.findAll());
     }
 
+    /**
+     * 个股资金流
+     * @throws InterruptedException
+     */
     public void loadCashFlows() throws InterruptedException {
         DailyInfoDTO dto = new DailyInfoDTO();
         dto.setApiName("moneyflow");
         basicService.loadByCal(dto, new CapitalFlowsEntity(),tradeCalDao.findAll());
     }
 
+    public void loadCashFlowHsgt(){
+
+    }
 }

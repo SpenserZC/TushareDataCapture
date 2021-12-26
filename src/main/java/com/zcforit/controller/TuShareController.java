@@ -73,4 +73,8 @@ public class TuShareController {
         dto.setApiName("moneyflow");
         basicService.loadByDay(dto, new CapitalFlowsEntity(),date);
     }
+
+
+
+
 }

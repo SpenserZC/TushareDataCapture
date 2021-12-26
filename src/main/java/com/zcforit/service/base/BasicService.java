@@ -54,10 +54,15 @@ public class BasicService {
         }
     }
 
-    public <T> List<T> getTuShareData(BaseRequest dto,T t) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
-        JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
-        List<T> tList = TuShareUtils.analyzeTSResult(result, t);
-        return tList;
+    public <T> List<T> getTuShareData(BaseRequest dto,T t){
+        try{
+            JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
+            List<T> tList = TuShareUtils.analyzeTSResult(result, t);
+            return tList;
+        }catch (Exception e){
+            log.info("拉取数据失败");
+        }
+       return null;
     }
 
     /**
