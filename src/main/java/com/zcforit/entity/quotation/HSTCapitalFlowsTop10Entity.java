@@ -12,8 +12,8 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name="")
-public class CapitalFlowsHSTTop10Entity {
+@Table(name="stock_quotation_hsgt_capital_flows_top10")
+public class HSTCapitalFlowsTop10Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //自增id

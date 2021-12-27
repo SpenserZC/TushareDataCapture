@@ -12,7 +12,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name="")
+@Table(name="stock_quotation_center_hold")
 public class CenterHoldStockEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
