@@ -11,7 +11,9 @@ http:
     validateAfterInactivity: 2000
 spring:
   datasource:
-    schema: classpath:sql/schema.sql
+    schema:
+      - classpath:sql/schema_basic.sql
+      - classpath:sql/schema_quotation.sql
     initialization-mode: always
     url: jdbc:mysql://localhost:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: tushare
