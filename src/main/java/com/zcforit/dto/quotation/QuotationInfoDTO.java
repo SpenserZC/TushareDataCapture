@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2021/12/9 16:54
  */
 @Data
-public class DailyInfoDTO {
+public class QuotationInfoDTO {
     private  String apiName="daily";
     private String tsCode; //str	N	股票代码（支持多个股票同时提取，逗号分隔）
     private String tradeDate; //str	N	交易日期（YYYYMMDD）

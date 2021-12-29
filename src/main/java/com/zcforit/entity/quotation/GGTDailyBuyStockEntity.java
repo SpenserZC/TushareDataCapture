@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name="stock_quotation_hsgt_daily_buy")
-public class HSGTDailyBuyStockEntity {
+public class GGTDailyBuyStockEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //自增id

@@ -5,26 +5,19 @@ import com.zcforit.dto.BaseRequest;
 import com.zcforit.dto.base.StockBasicDTO;
 
 import com.zcforit.dto.base.TradeCalDTO;
-import com.zcforit.dto.quotation.DailyInfoDTO;
+import com.zcforit.dto.quotation.QuotationInfoDTO;
 import com.zcforit.entity.base.StockBasicEntity;
 import com.zcforit.entity.base.StockCompanyEntity;
 import com.zcforit.entity.base.TradeCalEntity;
-import com.zcforit.entity.error.ErrorEntity;
 import com.zcforit.entity.quotation.*;
-import com.zcforit.repository.base.StockBasicDao;
 import com.zcforit.repository.base.TradeCalDao;
-import com.zcforit.service.base.BasicService;
+import com.zcforit.service.BasicService;
 import com.zcforit.utils.TuShareUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Controller;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,7 +34,6 @@ public class BasicController implements ApplicationRunner {
     BasicService basicService;
     @Autowired
     TradeCalDao tradeCalDao;
-
 
     @Autowired
     TuShareConfig config;
@@ -95,19 +87,19 @@ public class BasicController implements ApplicationRunner {
     }
 
     public void loadDaily() throws InterruptedException {
-        basicService.loadByCal(new DailyInfoDTO(),new DailyInfoEntity(),tradeCalDao.findAll());
+        basicService.loadByCal(new QuotationInfoDTO(),new DailyInfoEntity(),tradeCalDao.findAll());
         log.info("日K 近10年数据拉取完成");
     }
     public void loadWeekly() throws InterruptedException {
-        DailyInfoDTO dailyInfoDTO = new DailyInfoDTO();
-        dailyInfoDTO.setApiName("weekly");
-        basicService.loadByCal(dailyInfoDTO, new WeeklyInfoEntity(),tradeCalDao.findAll());
+        QuotationInfoDTO quotationInfoDTO = new QuotationInfoDTO();
+        quotationInfoDTO.setApiName("weekly");
+        basicService.loadByCal(quotationInfoDTO, new WeeklyInfoEntity(),tradeCalDao.findAll());
         log.info("周K 近10年数据拉取完成");
     }
     public void loadMonthly() throws InterruptedException {
-        DailyInfoDTO dailyInfoDTO = new DailyInfoDTO();
-        dailyInfoDTO.setApiName("monthly");
-        basicService.loadByCal(dailyInfoDTO, new MonthlyInfoEntity(),tradeCalDao.findAll());
+        QuotationInfoDTO quotationInfoDTO = new QuotationInfoDTO();
+        quotationInfoDTO.setApiName("monthly");
+        basicService.loadByCal(quotationInfoDTO, new MonthlyInfoEntity(),tradeCalDao.findAll());
         log.info("周K 近10年数据拉取完成");
     }
 
@@ -116,7 +108,7 @@ public class BasicController implements ApplicationRunner {
      * @throws InterruptedException
      */
     public void loadDailyIndicator() throws InterruptedException {
-        DailyInfoDTO dto = new DailyInfoDTO();
+        QuotationInfoDTO dto = new QuotationInfoDTO();
         dto.setApiName("daily_basic");
         basicService.loadByCal(dto, new DailyIndicatorEntity(),tradeCalDao.findAll());
     }
@@ -126,7 +118,7 @@ public class BasicController implements ApplicationRunner {
      * @throws InterruptedException
      */
     public void loadCashFlows() throws InterruptedException {
-        DailyInfoDTO dto = new DailyInfoDTO();
+        QuotationInfoDTO dto = new QuotationInfoDTO();
         dto.setApiName("moneyflow");
         basicService.loadByCal(dto, new CapitalFlowsEntity(),tradeCalDao.findAll());
     }

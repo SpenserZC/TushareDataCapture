@@ -1,8 +1,8 @@
 package com.zcforit.controller;
 
-import com.zcforit.dto.quotation.DailyInfoDTO;
+import com.zcforit.dto.quotation.QuotationInfoDTO;
 import com.zcforit.entity.quotation.*;
-import com.zcforit.service.base.BasicService;
+import com.zcforit.service.BasicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,29 +47,29 @@ public class TuShareController {
 
     @GetMapping(path = "/update/daily")
     public void loadDaily(String date) throws InterruptedException {
-        basicService.loadByDay(new DailyInfoDTO(),new DailyInfoEntity(),date);
+        basicService.loadByDay(new QuotationInfoDTO(),new DailyInfoEntity(),date);
     }
     @GetMapping(path = "/update/weekly")
     public void loadWeekly(String date) throws InterruptedException {
-        DailyInfoDTO dailyInfoDTO = new DailyInfoDTO();
-        dailyInfoDTO.setApiName("weekly");
-        basicService.loadByDay(dailyInfoDTO, new WeeklyInfoEntity(),date);
+        QuotationInfoDTO quotationInfoDTO = new QuotationInfoDTO();
+        quotationInfoDTO.setApiName("weekly");
+        basicService.loadByDay(quotationInfoDTO, new WeeklyInfoEntity(),date);
     }
     @GetMapping(path = "/update/monthly")
     public void loadMonthly(String date) throws InterruptedException {
-        DailyInfoDTO dailyInfoDTO = new DailyInfoDTO();
-        dailyInfoDTO.setApiName("monthly");
-        basicService.loadByDay(dailyInfoDTO, new MonthlyInfoEntity(),date);
+        QuotationInfoDTO quotationInfoDTO = new QuotationInfoDTO();
+        quotationInfoDTO.setApiName("monthly");
+        basicService.loadByDay(quotationInfoDTO, new MonthlyInfoEntity(),date);
     }
     @GetMapping(path = "/update/indicator")
     public void loadDailyIndicator(String date) throws InterruptedException {
-        DailyInfoDTO dto = new DailyInfoDTO();
+        QuotationInfoDTO dto = new QuotationInfoDTO();
         dto.setApiName("daily_basic");
         basicService.loadByDay(dto, new DailyIndicatorEntity(),date);
     }
     @GetMapping(path = "/update/cashflow")
     public void loadCashFlows(String date) throws InterruptedException {
-        DailyInfoDTO dto = new DailyInfoDTO();
+        QuotationInfoDTO dto = new QuotationInfoDTO();
         dto.setApiName("moneyflow");
         basicService.loadByDay(dto, new CapitalFlowsEntity(),date);
     }

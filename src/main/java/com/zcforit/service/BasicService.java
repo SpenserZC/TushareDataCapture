@@ -1,4 +1,4 @@
-package com.zcforit.service.base;
+package com.zcforit.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -37,7 +37,6 @@ public class BasicService {
     TuShareConfig tuShare;
 
     private String url="http://api.waditu.com";
-
 
 
     public <T> boolean saveToMySql(List<T> lists,String beanName){

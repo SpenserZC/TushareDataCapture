@@ -3,6 +3,7 @@ package com.zcforit.repository.quotation;
 import com.zcforit.entity.quotation.CapitalFlowsEntity;
 import com.zcforit.entity.quotation.DailyIndicatorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,4 +14,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("CapitalFlowsDao")
 public interface CapitalFlowsDao extends JpaRepository<CapitalFlowsEntity,String> {
+
+    @Query(value = "select * from stock_quotation_capital_flows where id=max(id)")
+    CapitalFlowsEntity findLastDate();
+
 }

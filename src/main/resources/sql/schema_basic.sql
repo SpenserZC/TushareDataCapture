@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS stock_base_trade_cal(
 
 -- 创建上市公司
 CREATE TABLE IF NOT EXISTS stock_base_company(
-    ts_code char(10) comment "股票代码",
+    ts_code char(10) not null primary key comment "股票代码",
     exchange char(10) comment "交易所代码 ，SSE上交所 SZSE深交所",
     chairman char(50) comment "法人代表",
     manager char(50) comment "总经理",
