@@ -15,10 +15,8 @@ import javax.persistence.*;
 @Table(name="stock_base_trade_cal")
 public class TradeCalEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
-    private String exchange;	 //str	Y	交易所 SSE上交所 SZSE深交所
     private String calDate;	 //str	Y	日历日期
+    private String exchange;	 //str	Y	交易所 SSE上交所 SZSE深交所
     private String isOpen;	 //str	Y	是否交易 0休市 1交易
     private String pretradeDate;	 //str	Y	上一个交易日
 }

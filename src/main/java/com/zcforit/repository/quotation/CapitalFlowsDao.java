@@ -14,8 +14,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("CapitalFlowsDao")
 public interface CapitalFlowsDao extends JpaRepository<CapitalFlowsEntity,String> {
-
-    @Query(value = "select * from stock_quotation_capital_flows where id=max(id)")
-    CapitalFlowsEntity findLastDate();
-
 }

@@ -3,6 +3,7 @@ package com.zcforit.repository.quotation;
 import com.zcforit.entity.quotation.CapitalFlowsEntity;
 import com.zcforit.entity.quotation.CenterHoldStockEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**

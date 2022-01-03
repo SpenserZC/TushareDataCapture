@@ -22,6 +22,7 @@ public class GGTCapitalFlowsTop10Entity {
     private String name; //str	股票名称
     private String close; //float	收盘价
     private String pChange; //float	涨跌幅
+    @Column(name="`rank`")
     private String rank; //str	资金排名
     private String marketType; //str	市场类型 2：港股通（沪） 4：港股通（深）
     private String amount; //float	累计成交金额（元）

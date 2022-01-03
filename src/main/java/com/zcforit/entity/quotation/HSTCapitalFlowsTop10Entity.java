@@ -20,12 +20,17 @@ public class HSTCapitalFlowsTop10Entity {
     private String tradeDate; //str	交易日期
     private String tsCode; //str	股票代码
     private String name; //str	股票名称
+    @Column(name="`close`")
     private String close; //float	收盘价
+    @Column(name="`change`")
     private String change; //float	涨跌额
+    @Column(name="`rank`")
     private String rank; //int	资金排名
     private String marketType; //str	市场类型（1：沪市 3：深市）
     private String amount; //float	成交金额（元）
     private String netAmount; //float	净成交金额（元）
+    @Column(name="`buy`")
     private String buy; //float	买入金额（元）
+    @Column(name="`sell`")
     private String sell; //float	卖出金额（元）
 }

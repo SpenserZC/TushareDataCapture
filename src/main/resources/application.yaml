@@ -15,7 +15,8 @@ spring:
       - classpath:sql/schema_basic.sql
       - classpath:sql/schema_quotation.sql
     initialization-mode: always
-    url: jdbc:mysql://localhost:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://152.136.98.160:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    url: jdbc:mysql://localhost:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: tushare
     password: tushare
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -31,8 +32,7 @@ spring:
       validation-query: SELECT 'x'
       test-on-borrow: false
       test-on-return: false
-      test-while-idle: true
-      time-between-eviction-runs-millis: 60000
+      test-while-idl--viction-runs-millis: 60000
       min-evictable-idle-time-millis: 300000
       filters: stat,wall
       filter:

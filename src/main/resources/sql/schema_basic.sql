@@ -20,9 +20,8 @@ CREATE TABLE IF NOT EXISTS stock_base_basic(
 
 -- 创建交易日历
 CREATE TABLE IF NOT EXISTS stock_base_trade_cal(
-    id int primary key auto_increment,
+    cal_date char(10) primary key,
     exchange char(10) comment "交易所 SSE上交所 SZSE深交所",
-    cal_date char(10) comment "日历日期",
     is_open char(10)	comment "是否交易 0休市 1交易",
     pretrade_date char(10)	comment "上一个交易日"
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "交易日历";

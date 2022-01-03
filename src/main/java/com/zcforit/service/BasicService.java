@@ -56,6 +56,7 @@ public class BasicService {
     public <T> List<T> getTuShareData(BaseRequest dto,T t){
         try{
             JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
+            log.info(result.toJSONString());
             List<T> tList = TuShareUtils.analyzeTSResult(result, t);
             return tList;
         }catch (Exception e){
@@ -83,6 +84,7 @@ public class BasicService {
                 tradeDate.set(t,all.get(i).getCalDate());
                 baseRequest = TuShareUtils.transBaseRequest(t, e, tuShare.getToken());
                 List<E> res = getTuShareData(baseRequest,e);
+                log.info(res.toString());
                 if(!res.isEmpty()){
                     saveToMySql(res,e.getClass().getSimpleName().replace("Entity","Dao"));
                     log.info(all.get(i).getCalDate()+" 股市数据拉取存储完成");
@@ -117,6 +119,7 @@ public class BasicService {
                 tradeDate.set(t,date);
                 baseRequest = TuShareUtils.transBaseRequest(t, e, tuShare.getToken());
                 List<E> res = getTuShareData(baseRequest,e);
+                System.out.println(res);
                 if(!res.isEmpty()){
                     saveToMySql(res,e.getClass().getSimpleName().replace("Entity","Dao"));
                     log.info(date+" 股市数据拉取存储完成");
@@ -134,4 +137,35 @@ public class BasicService {
             }
         log.info("数据拉取完成");
     }
+    public <T,E>void loadByDays(T t,E e,String start,String end) throws InterruptedException {
+        BaseRequest baseRequest = null;
+        try {
+            Field startDate = t.getClass().getDeclaredField("startDate");
+            startDate.setAccessible(true);
+            startDate.set(t,start);
+            Field endDate = t.getClass().getDeclaredField("endDate");
+            endDate.setAccessible(true);
+            endDate.set(t,start);
+            baseRequest = TuShareUtils.transBaseRequest(t, e, tuShare.getToken());
+            List<E> res = getTuShareData(baseRequest,e);
+            if(!res.isEmpty()){
+                saveToMySql(res,e.getClass().getSimpleName().replace("Entity","Dao"));
+                log.info(startDate+"到"+endDate+" 股市数据拉取存储完成");
+            }
+            Thread.sleep(200l);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            ErrorEntity errorEntity = new ErrorEntity();
+            errorEntity.setApiName(baseRequest.getApiName());
+            errorEntity.setKey(start+"-"+end);
+            errorEntity.setExceptionInfo(exception.getMessage());
+            List<ErrorEntity> errorEntities = new ArrayList<>();
+            errorEntities.add(errorEntity);
+            saveToMySql(errorEntities,"ErrorDao");
+        }
+        log.info("数据拉取完成");
+    }
+
+
+
 }

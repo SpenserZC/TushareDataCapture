@@ -102,15 +102,15 @@ CREATE TABLE IF NOT EXISTS stock_quotation_limit_list(
     id int primary key auto_increment,
     trade_date date  comment "交易日期",
 	ts_code  varchar(10)  comment "股票代码",
-	`name`  varchar(30)  comment "股票名称",
+	`name`  varchar(100)  comment "股票名称",
 	`close` float comment "收盘价",
 	pct_chg float comment "涨跌幅",
 	amp float comment "振幅",
 	fc_ratio float comment "封单金额/日成交金额",
 	fl_ratio float comment "封单手数/流通股本",
 	fd_amount float comment "封单金额",
-	first_time	datetime comment "首次涨停时间",
-	last_time datetime comment "最后封板时间",
+	first_time	TIME comment "首次涨停时间",
+	last_time TIME comment "最后封板时间",
 	open_times	int comment "打开次数",
 	strth float comment "涨跌停强度",
 	`limit`  varchar(10)  comment "D跌停U涨停"
@@ -173,8 +173,8 @@ CREATE TABLE IF NOT EXISTS stock_quotation_hsgt_hold_stock(
    	`code` varchar(20)  COMMENT "原始代码",
 	trade_date date  COMMENT "交易日期",
 	ts_code varchar(20)  COMMENT "TS代码",
-	`name` varchar(20)  COMMENT "股票名称",
-	vol int  COMMENT "持股数量(股)",
+	`name` varchar(100)  COMMENT "股票名称",
+	vol BIGINT  COMMENT "持股数量(股)",
 	ratio float  COMMENT "持股占比（%），占已发行股份百分比",
 	exchange varchar(10)  COMMENT "类型：SH沪股通SZ深股通HK港股通"
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "沪深港股通持股明细";
@@ -209,9 +209,9 @@ CREATE TABLE IF NOT EXISTS stock_quotation_center_hold(
     id int primary key auto_increment,
     trade_date	date COMMENT "交易日期",
 	ts_code  varchar(20) COMMENT "股票代号",
-	`name`  varchar(20) COMMENT "股票名称",
-	col_participant_id  varchar(20) COMMENT "参与者编号",
-	col_participant_name  varchar(20) COMMENT "机构名称",
+	`name`  varchar(100) COMMENT "股票名称",
+	col_participant_id  varchar(100) COMMENT "参与者编号",
+	col_participant_name  varchar(100) COMMENT "机构名称",
 	col_shareholding  varchar(20) COMMENT "持股量(股)",
 	col_shareholding_percent varchar(20) COMMENT "占已发行股份/权证/单位百分比(%)"
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "中央结算系统持股明细";
