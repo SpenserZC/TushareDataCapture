@@ -145,7 +145,7 @@ public class BasicService {
             startDate.set(t,start);
             Field endDate = t.getClass().getDeclaredField("endDate");
             endDate.setAccessible(true);
-            endDate.set(t,start);
+            endDate.set(t,end);
             baseRequest = TuShareUtils.transBaseRequest(t, e, tuShare.getToken());
             List<E> res = getTuShareData(baseRequest,e);
             if(!res.isEmpty()){

@@ -51,19 +51,22 @@ public class InitController implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         System.out.println("load start");
-//        loadStockBasic();
-//        loadStockCompany();
-//        String start = loadStockCal();
-//        String lastDate = mysqlService.getLastDate();
-//        service.loadDaily("20211230");
-//        service.loadLimitList("20211230");
-//        service.loadHSGTCapitalFlows("20211230");
-        service.loadHSTCapitalFlowsTop10("20211228");
-        service.loadGGTCapitalFlowsTop10("20211228");
-//        service.loadHSGTHoldStock("20211230");
-        service.loadGGTDailyBuyStock("20211228");
-//        service.loadGGTMonthlyBuyStock("20211230");
-//        service.loadCenterHoldStock("20211230");
+        loadStockBasic();
+        loadStockCompany();
+        loadStockCal();
+        service.loadDaily();
+        service.loadWeekly();
+        service.loadMonthly();
+        service.loadDailyIndicator();
+        service.loadCashFlows();
+        service.loadLimitList();
+        service.loadHSGTCapitalFlows();
+        service.loadHSTCapitalFlowsTop10();
+        service.loadGGTCapitalFlowsTop10();
+        service.loadHSGTHoldStock();
+        service.loadGGTDailyBuyStock();
+        service.loadGGTMonthlyBuyStock();
+        service.loadCenterHoldStock();
         System.exit(0);
     }
 
