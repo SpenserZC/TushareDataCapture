@@ -7,7 +7,7 @@ import javax.persistence.*;
 /**
  * @author zhang cheng
  * @version 1.0
- * @description: TODO
+ * @description: 资金流数据
  * @date 2021/12/11 15:44
  */
 @Data
