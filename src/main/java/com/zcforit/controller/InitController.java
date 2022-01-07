@@ -32,10 +32,9 @@ import java.util.List;
  * @date : 2021-12-05 11:01
  */
 @Slf4j
-@Controller
+//@Controller
 public class InitController implements ApplicationRunner {
-    @Autowired
-    BasicService basicService;
+
     @Autowired
     TradeCalDao tradeCalDao;
 
@@ -86,12 +85,7 @@ public class InitController implements ApplicationRunner {
         StockBasicDTO dto = new StockBasicDTO();
         dto.setApiName("stock_company");
         BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockCompanyEntity(), config.getToken());
-        try{
-            List<StockCompanyEntity> res = basicService.getTuShareData(baseRequest,new StockCompanyEntity());
-            basicService.saveToMySql(res,"StockCompanyDao");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        service.loadStockCompany(baseRequest);
     }
 
     /**
@@ -107,12 +101,7 @@ public class InitController implements ApplicationRunner {
         dto.setEndDate(today);
         dto.setIsOpen("1");
         BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new TradeCalEntity(), config.getToken());
-        try{
-            List<TradeCalEntity> res = basicService.getTuShareData(baseRequest,new TradeCalEntity());
-            basicService.saveToMySql(res,"TradeCalDao");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return lastDate;
+        service.loadStockCal(baseRequest);
+       return lastDate;
     }
 }

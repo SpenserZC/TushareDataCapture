@@ -1,6 +1,9 @@
 package com.zcforit.service;
 
 import com.zcforit.dto.BaseRequest;
+import com.zcforit.entity.base.StockNewShareEntity;
+
+import java.util.List;
 
 /**
  * @author zhang cheng
@@ -21,6 +24,12 @@ public interface LoadDataService {
      * @param baseRequest
      */
     public void loadStockCompany(BaseRequest baseRequest);
+
+    /**
+     * 获取新上市企业信息
+     * @param baseRequest
+     */
+    public List<StockNewShareEntity> loadNewStockCompany(BaseRequest baseRequest);
 
     /**
      * 获取股市交易日历

@@ -4,6 +4,7 @@ import com.zcforit.dto.BaseRequest;
 import com.zcforit.dto.quotation.QuotationInfoDTO;
 import com.zcforit.entity.base.StockBasicEntity;
 import com.zcforit.entity.base.StockCompanyEntity;
+import com.zcforit.entity.base.StockNewShareEntity;
 import com.zcforit.entity.base.TradeCalEntity;
 import com.zcforit.entity.quotation.*;
 import com.zcforit.repository.base.TradeCalDao;
@@ -40,6 +41,17 @@ public class LoadDataServiceImpl implements LoadDataService {
             e.printStackTrace();
         }
     }
+    public  List<StockNewShareEntity> loadNewStockCompany(BaseRequest baseRequest){
+        try{
+            List<StockNewShareEntity> res = basicService.getTuShareData(baseRequest,new StockNewShareEntity());
+            basicService.saveToMySql(res,"StockNewShareDao");
+            return res;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public void loadStockCompany(BaseRequest baseRequest){
         try{
             List<StockCompanyEntity> res = basicService.getTuShareData(baseRequest,new StockCompanyEntity());

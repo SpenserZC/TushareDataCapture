@@ -56,7 +56,7 @@ public class BasicService {
     public <T> List<T> getTuShareData(BaseRequest dto,T t){
         try{
             JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
-            log.info(result.toJSONString());
+            log.info(dto.toString()+"拉去了"+result.size()+"条数据");
             List<T> tList = TuShareUtils.analyzeTSResult(result, t);
             return tList;
         }catch (Exception e){
@@ -84,7 +84,7 @@ public class BasicService {
                 tradeDate.set(t,all.get(i).getCalDate());
                 baseRequest = TuShareUtils.transBaseRequest(t, e, tuShare.getToken());
                 List<E> res = getTuShareData(baseRequest,e);
-                log.info(res.toString());
+                log.info(baseRequest.toString()+"拉去了"+res.size()+"条数据");
                 if(!res.isEmpty()){
                     saveToMySql(res,e.getClass().getSimpleName().replace("Entity","Dao"));
                     log.info(all.get(i).getCalDate()+" 股市数据拉取存储完成");
@@ -119,7 +119,6 @@ public class BasicService {
                 tradeDate.set(t,date);
                 baseRequest = TuShareUtils.transBaseRequest(t, e, tuShare.getToken());
                 List<E> res = getTuShareData(baseRequest,e);
-                System.out.println(res);
                 if(!res.isEmpty()){
                     saveToMySql(res,e.getClass().getSimpleName().replace("Entity","Dao"));
                     log.info(date+" 股市数据拉取存储完成");

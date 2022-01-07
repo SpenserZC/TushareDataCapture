@@ -18,6 +18,22 @@ CREATE TABLE IF NOT EXISTS stock_base_basic(
     is_hs char(2)	comment "是否沪深港通标的，N否 H沪股通 S深股通"
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "股票信息表";
 
+
+CREATE TABLE IF NOT EXISTS stock_base_ipo_new(
+    ts_code  char(10) comment "strTS股票代码",
+    sub_code  char(20) comment "str申购代码",
+    name  char(50) comment "str名称",
+    ipo_date  date comment "str上网发行日期",
+    issue_date  varchar(20) comment "str上市日期",
+    amount  float comment "float发行总量（万股）",
+    market_amount  float comment "float上网发行总量（万股）",
+    price  float comment "float发行价格",
+    pe  float comment "float市盈率",
+    limit_amount  float comment "float个人申购上限（万股）",
+    funds  float comment "float募集资金（亿元）",
+    ballot  float comment "float中签率"
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "股票信息表";
+
 -- 创建交易日历
 CREATE TABLE IF NOT EXISTS stock_base_trade_cal(
     cal_date char(10) primary key,

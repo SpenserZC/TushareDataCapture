@@ -1,9 +1,19 @@
 package com.zcforit.controller;
 
+import com.zcforit.config.TuShareConfig;
+import com.zcforit.dto.BaseRequest;
+import com.zcforit.dto.base.StockBasicDTO;
+import com.zcforit.dto.base.TradeCalDTO;
 import com.zcforit.dto.quotation.QuotationInfoDTO;
+import com.zcforit.entity.base.StockBasicEntity;
+import com.zcforit.entity.base.StockCompanyEntity;
+import com.zcforit.entity.base.StockNewShareEntity;
+import com.zcforit.entity.base.TradeCalEntity;
 import com.zcforit.entity.quotation.*;
 import com.zcforit.service.BasicService;
 import com.zcforit.service.LoadDataService;
+import com.zcforit.service.MysqlService;
+import com.zcforit.utils.TuShareUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zhang cheng
@@ -23,35 +34,40 @@ import java.util.Date;
 @RestController
 @RequestMapping("/tushare")
 public class TuShareController {
+    @Autowired
+    MysqlService mysqlService;
 
     @Autowired
+    TuShareConfig config;
+    @Autowired
     LoadDataService service;
-//    @GetMapping(path = "/init")
-//    public String getS(String dto) {
-//       return "OK";
-//    }
 
-    @GetMapping(path = "/update/today")
-    public String updateAll() {
-        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+    @GetMapping(path = "/update")
+    public String updateAll(String date) {
+        if(date==null||"".equals(date))
+         date = new SimpleDateFormat("yyyyMMdd").format(new Date());
         try{
-            service.loadDaily(today);
-            service.loadWeekly(today);
-            service.loadMonthly(today);
-            service.loadDailyIndicator(today);
-            service.loadCashFlows(today);
-            service.loadLimitList(today);
-            service.loadHSGTCapitalFlows(today);
-            service.loadHSTCapitalFlowsTop10(today);
-            service.loadGGTCapitalFlowsTop10(today);
-            service.loadHSGTHoldStock(today);
-            service.loadGGTDailyBuyStock(today);
-            service.loadGGTMonthlyBuyStock(today);
-            service.loadCenterHoldStock(today);
+//            String lastDate = loadStockCal(date);
+            List<StockNewShareEntity> news = loadNewStockCompany(date, date);
+            loadStockBasic(news);
+            loadStockCompany(news);
+//            service.loadDaily(date);
+//            service.loadWeekly(date);
+//            service.loadMonthly(date);
+//            service.loadDailyIndicator(date);
+//            service.loadCashFlows(date);
+//            service.loadLimitList(date);
+//            service.loadHSGTCapitalFlows(date);
+//            service.loadHSTCapitalFlowsTop10(date);
+//            service.loadGGTCapitalFlowsTop10(date);
+//            service.loadHSGTHoldStock(date);
+//            service.loadGGTDailyBuyStock(date);
+//            service.loadGGTMonthlyBuyStock(date);
+//            service.loadCenterHoldStock(date);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return today +" 更新完成";
+        return date +" 更新完成";
     }
 
     @GetMapping(path = "/update/daily")
@@ -75,7 +91,59 @@ public class TuShareController {
 
     }
 
+    /**
+     * 获取新上市公司,返回新上市公司代码
+     */
+    public List<StockNewShareEntity> loadNewStockCompany(String start, String end){
+        TradeCalDTO dto = new TradeCalDTO();
+        dto.setApiName("new_share");
+        dto.setStartDate(start);
+        dto.setEndDate(end);
+        BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockNewShareEntity(), config.getToken());
+        return service.loadNewStockCompany(baseRequest);
+    }
 
+    /**
+     * 以stock code为主键，可以重复
+     */
+    public void loadStockBasic( List<StockNewShareEntity> list){
+        if(list==null || list.isEmpty()) return;
+        for (StockNewShareEntity val: list) {
+            StockBasicDTO dto = new StockBasicDTO();
+            dto.setTsCode(val.getTsCode());
+            BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockBasicEntity(), config.getToken());
+            service.loadStockBasic(baseRequest);
+        }
+    }
 
+    /**
+     * 以stock code为主键，可以重复
+     */
+    public void loadStockCompany(List<StockNewShareEntity> list){
+        if(list==null || list.isEmpty()) return;
+        for (StockNewShareEntity val: list) {
+            StockBasicDTO dto = new StockBasicDTO();
+            dto.setApiName("stock_company");
+            dto.setTsCode(val.getTsCode());
+            BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockCompanyEntity(), config.getToken());
+            service.loadStockCompany(baseRequest);
+        }
+    }
+
+    /**
+     * 以日期为主键，可以重复拉取
+     * 返回本次需要更新的最开始的一天
+     */
+    public String loadStockCal(String date){
+        String lastDate = mysqlService.getLastDate();
+        if(lastDate==null) lastDate="20100101";
+        TradeCalDTO dto = new TradeCalDTO();
+        dto.setStartDate(lastDate);
+        dto.setEndDate(date);
+        dto.setIsOpen("1");
+        BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new TradeCalEntity(), config.getToken());
+        service.loadStockCal(baseRequest);
+        return lastDate;
+    }
 
 }
