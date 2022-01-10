@@ -13,12 +13,11 @@ import javax.persistence.Table;
  * @date 2022/1/5 20:20
  */
 @Data
-//@Entity
-//@Table(name="stock_finance_forecast")
+@Entity
+@Table(name="stock_finance_forecast")
 public class ForecastEntity {
     @Id
     private String tsCode; //str	TS股票代码
-    @Id
     private String endDate; //str	报告期
     private String annDate; //str	公告日期
     private String type; //str	业绩预告类型(预增/预减/扭亏/首亏/续亏/续盈/略增/略减)

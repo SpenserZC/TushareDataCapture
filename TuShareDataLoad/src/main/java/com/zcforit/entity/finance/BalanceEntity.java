@@ -13,12 +13,11 @@ import javax.persistence.Table;
  * @date 2022/1/5 20:13
  */
 @Data
-//@Entity
-//@Table(name="stock_finance_balance")
+@Entity
+@Table(name="stock_finance_balance")
 public class BalanceEntity {
     @Id
     private String tsCode; //	str	Y	TS股票代码
-    @Id
     private String endDate; //	str	Y	报告期
     private String annDate; //	str	Y	公告日期
     private String fAnnDate; //	str	Y	实际公告日期

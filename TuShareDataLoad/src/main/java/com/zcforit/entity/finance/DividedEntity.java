@@ -13,12 +13,11 @@ import javax.persistence.Table;
  * @date 2022/1/5 20:30
  */
 @Data
-//@Entity
-//@Table(name="stock_finance_divided")
+@Entity
+@Table(name="stock_finance_divided")
 public class DividedEntity {
     @Id
     private String tsCode; //str	Y	TS代码
-    @Id
     private String endDate; //str	Y	分红年度
     private String annDate; //str	Y	预案公告日
     private String divProc; //str	Y	实施进度

@@ -13,12 +13,11 @@ import javax.persistence.Table;
  * @date 2022/1/5 20:24
  */
 @Data
-//@Entity
-//@Table(name="stock_finance_express")
+@Entity
+@Table(name="stock_finance_express")
 public class ExpressEntity {
     @Id
     private String tsCode;//	str	TS股票代码
-    @Id
     private String endDate;//	str	报告期
     private String annDate;//	str	公告日期
     private String revenue;//	float	营业收入(元)

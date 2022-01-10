@@ -13,12 +13,11 @@ import javax.persistence.Table;
  * @date 2022/1/5 20:30
  */
 @Data
-//@Entity
-//@Table(name="stock_finance_indicator")
+@Entity
+@Table(name="stock_finance_indicator")
 public class FinanceIndicatorEntity {
     @Id
     private String tsCode;  //str	Y	TS代码
-    @Id
     private String endDate;  //str	Y	报告期
     private String annDate;  //str	Y	公告日期
     private String eps;  //float	Y	基本每股收益
