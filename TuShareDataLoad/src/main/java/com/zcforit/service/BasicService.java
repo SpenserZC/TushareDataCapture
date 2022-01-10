@@ -53,6 +53,7 @@ public class BasicService {
         try{
             JSONObject result = component.post(url, tuShare.headerMap(), CommenUtils.objectToStr(dto));
             log.info(dto.toString()+"拉去了"+result.size()+"条数据");
+            System.out.println(result);
             List<T> tList = TuShareUtils.analyzeTSResult(result, t);
             return tList;
         }catch (Exception e){

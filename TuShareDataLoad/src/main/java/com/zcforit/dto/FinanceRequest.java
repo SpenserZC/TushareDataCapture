@@ -10,6 +10,7 @@ import lombok.Data;
  */
 @Data
 public class FinanceRequest {
+    private String apiName;
     private String tsCode; //str	Y	股票代码
     private String annDate; //str	N	公告日期(YYYYMMDD格式，下同)
     private String startDate; //str	N	公告开始日期
