@@ -101,7 +101,7 @@ public class CashFlowEntity {
     private String others; //float	Y	其他
     private String imNetCashflowOperAct; //float	Y	经营活动产生的现金流量净额(间接法)
     private String convDebtIntoCap; //float	Y	债务转为资本
-    private String convCopbondsDueWithin1y; //float	Y	一年内到期的可转换公司债券
+//    private String convCopbondsDueWithin1y; //float	Y	一年内到期的可转换公司债券
     private String faFncLeases; //float	Y	融资租入固定资产
     private String imNIncrCashEqu; //float	Y	现金及现金等价物净增加额(间接法)
     private String netDismCapitalAdd; //float	Y	拆出资金净增加额

@@ -39,6 +39,7 @@ public class TuShareController {
     @Autowired
     LoadDataService service;
 
+
     @GetMapping(path = "/update")
     public String updateAll(String date) {
         if(date==null||"".equals(date))
@@ -48,19 +49,31 @@ public class TuShareController {
             List<StockNewShareEntity> news = loadNewStockCompany(lastDate, date);
             loadStockBasic(news);
             loadStockCompany(news);
-            service.loadDaily(date);
-            service.loadWeekly(date);
-            service.loadMonthly(date);
-            service.loadDailyIndicator(date);
-            service.loadCashFlows(date);
-            service.loadLimitList(date);
-            service.loadHSGTCapitalFlows(date);
-            service.loadHSTCapitalFlowsTop10(date);
-            service.loadGGTCapitalFlowsTop10(date);
-            service.loadHSGTHoldStock(date);
-            service.loadGGTDailyBuyStock(date);
+            if(mysqlService.getDailyInfoLastDay().compareTo(date)<0)
+                service.loadDaily(mysqlService.getDailyInfoLastDay(),date);
+            if(mysqlService.getWeeklyInfoLastDay().compareTo(date)<0)
+                service.loadWeekly(mysqlService.getWeeklyInfoLastDay(),date);
+            if(mysqlService.getMonthlyInfoLastDay().compareTo(date)<0)
+                service.loadMonthly(mysqlService.getMonthlyInfoLastDay(),date);
+            if(mysqlService.getDailyIndicatorLastDay().compareTo(date)<0)
+                service.loadDailyIndicator(mysqlService.getDailyIndicatorLastDay(),date);
+            if(mysqlService.getCapitalFlowsLastDay().compareTo(date)<0)
+                service.loadCashFlows(mysqlService.getCapitalFlowsLastDay(),date);
+            if(mysqlService.getLimitListLastDay().compareTo(date)<0)
+                service.loadLimitList(mysqlService.getLimitListLastDay(),date);
+            if(mysqlService.getHSGTCapitalFlowsLastDay().compareTo(date)<0)
+                service.loadHSGTCapitalFlows(mysqlService.getHSGTCapitalFlowsLastDay(),date);
+            if(mysqlService.getHSTCapitalFlowsTop10LastDay().compareTo(date)<0)
+                service.loadHSTCapitalFlowsTop10(mysqlService.getHSTCapitalFlowsTop10LastDay(),date);
+            if(mysqlService.getGGTCapitalFlowsTop10LastDay().compareTo(date)<0)
+                service.loadGGTCapitalFlowsTop10(mysqlService.getGGTCapitalFlowsTop10LastDay(),date);
+            if(mysqlService.getHSGTHoldStockLastDay().compareTo(date)<0)
+                service.loadHSGTHoldStock(mysqlService.getHSGTHoldStockLastDay(),date);
+            if(mysqlService.getGGTDailyBuyStockLastDay().compareTo(date)<0)
+                service.loadGGTDailyBuyStock(mysqlService.getGGTDailyBuyStockLastDay(),date);
+            if(mysqlService.getCenterHoldStockLastDay().compareTo(date)<0)
+                service.loadCenterHoldStock(mysqlService.getCenterHoldStockLastDay(),date);
 //            service.loadGGTMonthlyBuyStock(date); 木有权限
-            service.loadCenterHoldStock(date);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -132,7 +145,7 @@ public class TuShareController {
      * 返回本次需要更新的最开始的一天
      */
     public String loadStockCal(String date){
-        String lastDate = mysqlService.getLastDate();
+        String lastDate = mysqlService.getCalLastDate();
         if(lastDate==null) lastDate="20100101";
         TradeCalDTO dto = new TradeCalDTO();
         dto.setStartDate(lastDate);

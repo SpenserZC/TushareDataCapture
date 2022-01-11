@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_income(
     continued_net_profit    float comment "持续经营净利润",
     end_net_profit  float comment "终止经营净利润",
     update_flag  varchar(20)  comment "更新标识",
-    primary key(ts_code,end_date)
+    unique key(ts_code,end_date)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司利润表";
 
 
@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_balance(
 	oth_rcv_total	float comment "其他应收款(合计)（元）",
 	fix_assets_total	float comment "固定资产(合计)(元)",
 	update_flag	varchar(20) comment "更新标识",
-    primary key(ts_code,end_date)
+    unique key(ts_code,end_date)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司资产负债表";
 
 
@@ -358,7 +358,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_cashflow(
 	end_bal_cash_equ	float comment "加:现金等价物的期末余额",
 	beg_bal_cash_equ	float comment "减:现金等价物的期初余额",
 	update_flag	varchar(20)  comment "更新标志(1最新）",
-    primary key(ts_code,end_date)
+    unique key(ts_code,end_date)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司现金流量表";
 
 CREATE TABLE IF NOT EXISTS stock_finance_forecast(
@@ -374,7 +374,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_forecast(
 	first_ann_date	date comment "首次公告日",
 	summary	varchar(2000) comment "业绩预告摘要",
 	change_reason varchar(2000) comment "业绩变动原因",
-    primary key(ts_code,end_date)
+    unique key(ts_code,end_date)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司业绩预告表";
 
 CREATE TABLE IF NOT EXISTS stock_finance_express(
@@ -410,7 +410,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_express(
 	perf_summary varchar(2000) comment "业绩简要说明",
 	is_audit int comment "是否审计： 1是 0否",
 	remark varchar(2000) comment "备注",
-   	primary key(ts_code,end_date)
+   	unique key(ts_code,end_date)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司业绩快报表";
 
 CREATE TABLE IF NOT EXISTS stock_finance_divided(
@@ -430,7 +430,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_divided(
 	imp_ann_date	date comment "实施公告日",
 	base_date	date comment "基准日",
 	base_share	float comment "基准股本（万）",
-   	primary key(ts_code,end_date)
+   	unique key(ts_code,end_date)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司分股分红表";
 
 CREATE TABLE IF NOT EXISTS stock_finance_indicator(
@@ -601,7 +601,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_indicator(
 	equity_yoy	float comment "净资产同比增长率",
 	rd_exp	float comment "研发费用",
 	update_flag	varchar(20) comment "更新标识",
-   	primary key(ts_code,end_date)
+   	unique key(ts_code,end_date)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司财务指标表";
 
 CREATE TABLE IF NOT EXISTS stock_finance_audit(
@@ -612,7 +612,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_audit(
 	audit_fees	float comment "审计总费用（元）",
 	audit_agency varchar(300) comment "会计事务所",
 	audit_sign	varchar(200) comment "签字会计师",
-    primary key(ts_code,end_date)
+    unique key(ts_code,end_date)
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司财务审计意见表";
 
 
@@ -625,7 +625,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_mainbz(
 	bz_cost	float comment "主营业务成本(元)",
 	curr_type varchar(20) comment "货币代码",
 	update_flag varchar(20) comment "是否更新",
-    primary key(ts_code,end_date)
+    unique key(ts_code,end_date)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司主营业务表";
 
 CREATE TABLE IF NOT EXISTS stock_finance_disclosure_date(
@@ -635,7 +635,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_disclosure_date(
 	pre_date date comment "预计披露日期",
 	actual_date date comment "实际披露日期",
 	modify_date date comment "披露日期修正记录",
-    primary key(ts_code,end_date)
+    unique key(ts_code,end_date)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司财务披露表";
 
 

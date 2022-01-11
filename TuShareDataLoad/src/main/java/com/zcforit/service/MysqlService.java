@@ -1,5 +1,9 @@
 package com.zcforit.service;
 
+import com.zcforit.entity.base.StockBasicEntity;
+
+import java.util.List;
+
 /**
  * @author zhang cheng
  * @version 1.0
@@ -11,6 +15,27 @@ public interface MysqlService {
      * 获取本地库最后一天
      * @return
      */
-    public String getLastDate();
+    public String getCalLastDate();
+
+    /**
+     * 获取所有的股票信息
+     * @return
+     */
+    public List<StockBasicEntity> getAllStock();
+
+    public String getCapitalFlowsLastDay();
+    public String getCenterHoldStockLastDay();
+    public String getDailyIndicatorLastDay();
+    public String getDailyInfoLastDay();
+    public String getLimitListLastDay();
+    public String getMonthlyInfoLastDay();
+    public String getWeeklyInfoLastDay();
+    public String getGGTCapitalFlowsTop10LastDay();
+    public String getGGTDailyBuyStockLastDay();
+    public String getGGTMonthlyBuyStockLastDay();
+    public String getHSGTCapitalFlowsLastDay();
+    public String getHSGTHoldStockLastDay();
+    public String getHSTCapitalFlowsTop10LastDay();
+
 
 }

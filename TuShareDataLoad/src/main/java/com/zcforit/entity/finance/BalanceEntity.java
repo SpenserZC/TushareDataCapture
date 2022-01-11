@@ -39,7 +39,7 @@ public class BalanceEntity {
     private String intReceiv; //	float	Y	应收利息
     private String inventories; //	float	Y	存货
     private String amorExp; //	float	Y	长期待摊费用
-    private String ncaWithin1y; //	float	Y	一年内到期的非流动资产
+//    private String ncaWithin1y; //	float	Y	一年内到期的非流动资产
     private String settRsrv; //	float	Y	结算备付金
     private String loantoOthBankFi; //	float	Y	拆出资金
     private String premiumReceiv; //	float	Y	应收保费
@@ -109,7 +109,7 @@ public class BalanceEntity {
     private String rsrvInsurCont; //	float	Y	保险合同准备金
     private String actingTradingSec; //	float	Y	代理买卖证券款
     private String actingUwSec; //	float	Y	代理承销证券款
-    private String nonCurLiabDue1y; //	float	Y	一年内到期的非流动负债
+//    private String nonCurLiabDue1y; //	float	Y	一年内到期的非流动负债
     private String othCurLiab; //	float	Y	其他流动负债
     private String totalCurLiab; //	float	Y	流动负债合计
     private String bondPayable; //	float	Y	应付债券

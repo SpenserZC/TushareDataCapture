@@ -88,7 +88,7 @@ public class InitController implements ApplicationRunner {
      * 返回本次需要更新的最开始的一天
      */
     public String loadStockCal(){
-        String lastDate = mysqlService.getLastDate();
+        String lastDate = mysqlService.getCalLastDate();
         if(lastDate==null) lastDate="20100101";
         TradeCalDTO dto = new TradeCalDTO();
         dto.setStartDate(lastDate);

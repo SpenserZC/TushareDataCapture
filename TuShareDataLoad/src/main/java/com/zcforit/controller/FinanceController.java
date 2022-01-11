@@ -22,18 +22,23 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class FinanceController implements ApplicationRunner {
     @Autowired
-    FinanceService service;
+    FinanceService financeService;
     @Autowired
     TuShareConfig config;
 
 
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        FinanceRequest dto = new FinanceRequest();
-        dto.setTsCode("000001.SZ");
-        dto.setApiName("income");
-        BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new IncomeEntity(), config.getToken());
-        service.loadFinanceIncome(baseRequest);
+        financeService.loadFinanceIncome("000001.SZ");
+//        financeService.loadFinanceBalance("000001.SZ");
+//        financeService.loadFinanceCashFlow("000001.SZ");
+//        financeService.loadFinanceForecast("000001.SZ");
+//        financeService.loadFinanceExpress("000001.SZ");
+//        financeService.loadFinanceDivided("000001.SZ");
+//        financeService.loadFinanceIndicator("000001.SZ");
+//        financeService.loadFinanceAudit("000001.SZ");
+//        financeService.loadFinanceMainbz("000001.SZ");
+//        financeService.loadFinanceDisclosureDate("000001.SZ");
+        System.exit(0);
     }
 }

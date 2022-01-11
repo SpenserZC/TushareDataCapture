@@ -2,6 +2,7 @@ package com.zcforit.repository.quotation;
 
 import com.zcforit.entity.quotation.DailyIndicatorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,4 +13,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("DailyIndicatorDao")
 public interface DailyIndicatorDao extends JpaRepository<DailyIndicatorEntity,String> {
+    @Query(nativeQuery = true,value = "select max(trade_date) from stock_quotation_daily_indicator")
+    String findLastDate();
 }
