@@ -12,12 +12,12 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@IdClass(QuotationKeys.class)
 @Table(name="stock_quotation_center_hold")
 public class CenterHoldStockEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tradeDate; //str	Y	交易日期
+    @Id
     private String tsCode; //str	Y	股票代号
     private String name; //str	Y	股票名称
     private String colParticipantId; //str	Y	参与者编号

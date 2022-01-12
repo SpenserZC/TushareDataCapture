@@ -15,8 +15,6 @@ import javax.persistence.*;
 @Table(name="stock_quotation_hsgt_daily_buy")
 public class GGTDailyBuyStockEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tradeDate; //str	Y	交易日期
     private String buyAmount; //float	Y	买入成交金额（亿元）
     private String buyVolume; //float	Y	买入成交笔数（万笔）

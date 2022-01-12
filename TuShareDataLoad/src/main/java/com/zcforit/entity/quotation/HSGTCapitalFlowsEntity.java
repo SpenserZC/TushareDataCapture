@@ -15,8 +15,6 @@ import javax.persistence.*;
 @Table(name="stock_quotation_hsgt_capital_flows")
 public class HSGTCapitalFlowsEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tradeDate; //str	交易日期
     private String ggtSs; //float	港股通（上海）
     private String ggtSz; //float	港股通（深圳）

@@ -12,14 +12,14 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@IdClass(QuotationKeys.class)
 @Table(name="stock_quotation_hsgt_hold_stock")
 public class HSGTHoldStockEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
-    private String code; //str	Y	原始代码
     private String tradeDate; //str	Y	交易日期
+    @Id
     private String tsCode; //str	Y	TS代码
+    private String code; //str	Y	原始代码
     private String name; //str	Y	股票名称
     private String vol; //int	Y	持股数量(股)
     private String ratio; //float	Y	持股占比（%），占已发行股份百分比

@@ -1,5 +1,6 @@
 package com.zcforit.entity.quotation;
 
+import com.zcforit.entity.finance.IdKeys;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,12 +13,12 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@IdClass(QuotationKeys.class)
 @Table(name="stock_quotation_daily")
 public class DailyInfoEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tsCode; //str	股票代码
+    @Id
     private String tradeDate; //str	交易日期
     @Column(name="`open`")
     private String open; //float	开盘价

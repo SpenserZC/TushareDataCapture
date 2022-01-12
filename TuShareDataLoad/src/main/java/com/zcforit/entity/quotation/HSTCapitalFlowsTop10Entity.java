@@ -12,12 +12,12 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@IdClass(QuotationKeys.class)
 @Table(name="stock_quotation_hsgt_capital_flows_top10")
 public class HSTCapitalFlowsTop10Entity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tradeDate; //str	交易日期
+    @Id
     private String tsCode; //str	股票代码
     private String name; //str	股票名称
     @Column(name="`close`")

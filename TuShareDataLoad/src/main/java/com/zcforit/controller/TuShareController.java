@@ -8,7 +8,7 @@ import com.zcforit.entity.base.StockBasicEntity;
 import com.zcforit.entity.base.StockCompanyEntity;
 import com.zcforit.entity.base.StockNewShareEntity;
 import com.zcforit.entity.base.TradeCalEntity;
-import com.zcforit.service.LoadDataService;
+import com.zcforit.service.BasicQuotaService;
 import com.zcforit.service.MysqlService;
 import com.zcforit.utils.TuShareUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +28,8 @@ import java.util.List;
  * @date 2021/12/14 20:16
  */
 @Slf4j
-//@RestController
-//@RequestMapping("/tushare")
+@RestController
+@RequestMapping("/tushare")
 public class TuShareController {
     @Autowired
     MysqlService mysqlService;
@@ -37,7 +37,7 @@ public class TuShareController {
     @Autowired
     TuShareConfig config;
     @Autowired
-    LoadDataService service;
+    BasicQuotaService basicQuotaService;
 
 
     @GetMapping(path = "/update")
@@ -46,33 +46,82 @@ public class TuShareController {
          date = new SimpleDateFormat("yyyyMMdd").format(new Date());
         try{
             String lastDate = loadStockCal(date);
+            System.out.println(lastDate);
             List<StockNewShareEntity> news = loadNewStockCompany(lastDate, date);
             loadStockBasic(news);
             loadStockCompany(news);
-            if(mysqlService.getDailyInfoLastDay().compareTo(date)<0)
-                service.loadDaily(mysqlService.getDailyInfoLastDay(),date);
-            if(mysqlService.getWeeklyInfoLastDay().compareTo(date)<0)
-                service.loadWeekly(mysqlService.getWeeklyInfoLastDay(),date);
-            if(mysqlService.getMonthlyInfoLastDay().compareTo(date)<0)
-                service.loadMonthly(mysqlService.getMonthlyInfoLastDay(),date);
-            if(mysqlService.getDailyIndicatorLastDay().compareTo(date)<0)
-                service.loadDailyIndicator(mysqlService.getDailyIndicatorLastDay(),date);
-            if(mysqlService.getCapitalFlowsLastDay().compareTo(date)<0)
-                service.loadCashFlows(mysqlService.getCapitalFlowsLastDay(),date);
-            if(mysqlService.getLimitListLastDay().compareTo(date)<0)
-                service.loadLimitList(mysqlService.getLimitListLastDay(),date);
-            if(mysqlService.getHSGTCapitalFlowsLastDay().compareTo(date)<0)
-                service.loadHSGTCapitalFlows(mysqlService.getHSGTCapitalFlowsLastDay(),date);
-            if(mysqlService.getHSTCapitalFlowsTop10LastDay().compareTo(date)<0)
-                service.loadHSTCapitalFlowsTop10(mysqlService.getHSTCapitalFlowsTop10LastDay(),date);
-            if(mysqlService.getGGTCapitalFlowsTop10LastDay().compareTo(date)<0)
-                service.loadGGTCapitalFlowsTop10(mysqlService.getGGTCapitalFlowsTop10LastDay(),date);
-            if(mysqlService.getHSGTHoldStockLastDay().compareTo(date)<0)
-                service.loadHSGTHoldStock(mysqlService.getHSGTHoldStockLastDay(),date);
-            if(mysqlService.getGGTDailyBuyStockLastDay().compareTo(date)<0)
-                service.loadGGTDailyBuyStock(mysqlService.getGGTDailyBuyStockLastDay(),date);
-            if(mysqlService.getCenterHoldStockLastDay().compareTo(date)<0)
-                service.loadCenterHoldStock(mysqlService.getCenterHoldStockLastDay(),date);
+            if(mysqlService.getDailyInfoLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getDailyInfoLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadDaily(val.getCalDate());
+                }
+            }
+            if(mysqlService.getWeeklyInfoLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getWeeklyInfoLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadWeekly(val.getCalDate());
+                }
+            }
+            if(mysqlService.getMonthlyInfoLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getMonthlyInfoLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadMonthly(val.getCalDate());
+                }
+            }
+            if(mysqlService.getDailyIndicatorLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getDailyIndicatorLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadDailyIndicator(val.getCalDate());
+                }
+            }
+            if(mysqlService.getCapitalFlowsLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getCapitalFlowsLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadCashFlows(val.getCalDate());
+                }
+            }
+            if(mysqlService.getLimitListLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getLimitListLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadLimitList(val.getCalDate());
+                }
+            }
+            if(mysqlService.getHSGTCapitalFlowsLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getHSGTCapitalFlowsLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadHSGTCapitalFlows(val.getCalDate());
+                }
+            }
+            if(mysqlService.getHSTCapitalFlowsTop10LastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getHSTCapitalFlowsTop10LastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadHSTCapitalFlowsTop10(val.getCalDate());
+                }
+            }
+            if(mysqlService.getGGTCapitalFlowsTop10LastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getGGTCapitalFlowsTop10LastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadGGTCapitalFlowsTop10(val.getCalDate());
+                }
+            }
+            if(mysqlService.getHSGTHoldStockLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getHSGTHoldStockLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadHSGTHoldStock(val.getCalDate());
+                }
+            }
+            if(mysqlService.getGGTDailyBuyStockLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getGGTDailyBuyStockLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadGGTDailyBuyStock(val.getCalDate());
+                }
+            }
+            if(mysqlService.getCenterHoldStockLastDay().compareTo(date)<0){
+                List<TradeCalEntity> datesList = basicQuotaService.getDatesList(mysqlService.getCenterHoldStockLastDay(), date);
+                for (TradeCalEntity val:datesList){
+                    basicQuotaService.loadCenterHoldStock(val.getCalDate());
+                }
+            }
 //            service.loadGGTMonthlyBuyStock(date); 木有权限
         }catch (Exception e){
             e.printStackTrace();
@@ -82,11 +131,11 @@ public class TuShareController {
 
     @GetMapping(path = "/update/daily")
     public void loadDaily(String date) throws InterruptedException {
-        service.loadDaily(date);
+        basicQuotaService.loadDaily(date);
     }
     @GetMapping(path = "/update/weekly")
     public void loadWeekly(String date) throws InterruptedException {
-        service.loadWeekly(date);
+        basicQuotaService.loadWeekly(date);
     }
     @GetMapping(path = "/update/monthly")
     public void loadMonthly(String date) throws InterruptedException {
@@ -110,7 +159,7 @@ public class TuShareController {
         dto.setStartDate(start);
         dto.setEndDate(end);
         BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockNewShareEntity(), config.getToken());
-        return service.loadNewStockCompany(baseRequest);
+        return basicQuotaService.loadNewStockCompany(baseRequest);
     }
 
     /**
@@ -122,7 +171,7 @@ public class TuShareController {
             StockBasicDTO dto = new StockBasicDTO();
             dto.setTsCode(val.getTsCode());
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockBasicEntity(), config.getToken());
-            service.loadStockBasic(baseRequest);
+            basicQuotaService.loadStockBasic(baseRequest);
         }
     }
 
@@ -136,7 +185,7 @@ public class TuShareController {
             dto.setApiName("stock_company");
             dto.setTsCode(val.getTsCode());
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockCompanyEntity(), config.getToken());
-            service.loadStockCompany(baseRequest);
+            basicQuotaService.loadStockCompany(baseRequest);
         }
     }
 
@@ -152,7 +201,7 @@ public class TuShareController {
         dto.setEndDate(date);
         dto.setIsOpen("1");
         BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new TradeCalEntity(), config.getToken());
-        service.loadStockCal(baseRequest);
+        basicQuotaService.loadStockCal(baseRequest);
         return lastDate;
     }
 

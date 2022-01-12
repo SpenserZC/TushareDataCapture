@@ -73,6 +73,8 @@ public class MysqlServiceImpl implements MysqlService {
         return res;
     }
 
+
+
     public List<StockBasicEntity> getAllStock(){
         return  stockBasicDao.findAll();
     }

@@ -1,6 +1,8 @@
 package com.zcforit.service.impl;
 
+import com.zcforit.config.TuShareConfig;
 import com.zcforit.dto.BaseRequest;
+import com.zcforit.dto.base.TradeCalDTO;
 import com.zcforit.dto.quotation.QuotationInfoDTO;
 import com.zcforit.entity.base.StockBasicEntity;
 import com.zcforit.entity.base.StockCompanyEntity;
@@ -9,7 +11,8 @@ import com.zcforit.entity.base.TradeCalEntity;
 import com.zcforit.entity.quotation.*;
 import com.zcforit.repository.base.TradeCalDao;
 import com.zcforit.service.BasicService;
-import com.zcforit.service.LoadDataService;
+import com.zcforit.service.BasicQuotaService;
+import com.zcforit.utils.TuShareUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,13 +28,15 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-public class LoadDataServiceImpl implements LoadDataService {
+public class BasicQuotaServiceImpl implements BasicQuotaService {
 
     @Autowired
     BasicService basicService;
     @Autowired
     TradeCalDao tradeCalDao;
 
+    @Autowired
+    TuShareConfig config;
 
     public void loadStockBasic(BaseRequest baseRequest){
         try{
@@ -68,6 +73,23 @@ public class LoadDataServiceImpl implements LoadDataService {
             e.printStackTrace();
         }
     }
+
+    /**
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public List<TradeCalEntity> getDatesList(String start, String end){
+        TradeCalDTO dto = new TradeCalDTO();
+        dto.setStartDate(start);
+        dto.setEndDate(end);
+        dto.setIsOpen("1");
+        BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new TradeCalEntity(), config.getToken());
+        List<TradeCalEntity> res = basicService.getTuShareData(baseRequest,new TradeCalEntity()).get(0);
+        return res;
+    }
+
 
     public void loadDaily() {
         try {

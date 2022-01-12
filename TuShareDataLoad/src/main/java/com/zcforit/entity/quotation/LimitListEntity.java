@@ -12,12 +12,12 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@IdClass(QuotationKeys.class)
 @Table(name="stock_quotation_limit_list")
 public class LimitListEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tradeDate; 	//str	Y	交易日期
+    @Id
     private String tsCode; 	//str	Y	股票代码
     private String name; 	//str	Y	股票名称
     private String close; 	//float	Y	收盘价

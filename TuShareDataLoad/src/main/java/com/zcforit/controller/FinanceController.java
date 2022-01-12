@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
  * @description: 拉取财务数据
  * @date 2022/1/10 21:03
  */
-@Controller
+//@Controller
 public class FinanceController implements ApplicationRunner {
     @Autowired
     FinanceService financeService;

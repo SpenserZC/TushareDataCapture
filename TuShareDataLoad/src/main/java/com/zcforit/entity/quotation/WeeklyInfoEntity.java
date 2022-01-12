@@ -12,12 +12,12 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@IdClass(QuotationKeys.class)
 @Table(name="stock_quotation_weekly")
 public class WeeklyInfoEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tsCode; //str	股票代码
+    @Id
     private String tradeDate; //str	交易日期
     @Column(name="`open`")
     private String open; //float	开盘价

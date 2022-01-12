@@ -12,12 +12,12 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@IdClass(QuotationKeys.class)
 @Table(name="stock_quotation_daily_indicator")
 public class DailyIndicatorEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tsCode; //str	TS股票代码
+    @Id
     private String tradeDate; //str	交易日期
     private String close; //float	当日收盘价
     private String turnoverRate; //float	换手率（%）

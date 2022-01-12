@@ -8,7 +8,7 @@ import com.zcforit.entity.base.StockBasicEntity;
 import com.zcforit.entity.base.StockCompanyEntity;
 import com.zcforit.entity.base.TradeCalEntity;
 import com.zcforit.repository.base.TradeCalDao;
-import com.zcforit.service.LoadDataService;
+import com.zcforit.service.BasicQuotaService;
 import com.zcforit.service.MysqlService;
 import com.zcforit.utils.TuShareUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class InitController implements ApplicationRunner {
     TradeCalDao tradeCalDao;
 
     @Autowired
-    LoadDataService service;
+    BasicQuotaService service;
 
     @Autowired
     MysqlService mysqlService;

@@ -2,6 +2,7 @@ package com.zcforit.service;
 
 import com.zcforit.dto.BaseRequest;
 import com.zcforit.entity.base.StockNewShareEntity;
+import com.zcforit.entity.base.TradeCalEntity;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @description: 拉取数据接口
  * @date : 2021-12-29 22:33
  */
-public interface LoadDataService {
+public interface BasicQuotaService {
     //基本数据
     /**
      * 获取基本数据
@@ -36,6 +37,14 @@ public interface LoadDataService {
      * @param baseRequest
      */
     public void loadStockCal(BaseRequest baseRequest);
+
+    /**
+     * 获取两天之间的交易日期
+     * @param start
+     * @param end
+     * @return
+     */
+    public List<TradeCalEntity> getDatesList(String start, String end);
 
     //行情数据
     /**

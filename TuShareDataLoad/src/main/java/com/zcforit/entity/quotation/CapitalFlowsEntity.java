@@ -12,12 +12,12 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@IdClass(QuotationKeys.class)
 @Table(name="stock_quotation_capital_flows")
 public class CapitalFlowsEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //自增id
     private String tsCode; //str Y   TS代码
+    @Id
     private String tradeDate; //str Y   交易日期
     private String buySmVol; //int Y   小单买入量（手）
     private String buySmAmount; //float   Y   小单买入金额（万元）
