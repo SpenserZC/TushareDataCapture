@@ -2,9 +2,7 @@ package com.zcforit.entity.finance;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author zhang cheng
@@ -17,6 +15,8 @@ import javax.persistence.Table;
 @Table(name="stock_finance_disclosure_date")
 public class DisclosureDateEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; //自增id
     private String tsCode; //str	Y	TS代码
     private String endDate; //str	Y	报告期
     private String annDate; //str	Y	最新披露公告日

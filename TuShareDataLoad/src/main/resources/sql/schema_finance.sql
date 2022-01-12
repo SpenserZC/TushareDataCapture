@@ -365,7 +365,7 @@ CREATE TABLE IF NOT EXISTS stock_finance_forecast(
     ts_code	varchar(20) comment "TS股票代码",
     end_date date comment "报告期",
 	ann_date date comment "公告日期",
-	type date comment "(预增/预减/扭亏/首亏/续亏/续盈/略增/略减)",
+	type varchar(20) comment "(预增/预减/扭亏/首亏/续亏/续盈/略增/略减)",
 	p_change_min float comment "预告净利润变动幅度下限（%）",
 	p_change_max float comment "预告净利润变动幅度上限（%）",
 	net_profit_min float comment "预告净利润下限（万元）",
@@ -605,18 +605,19 @@ CREATE TABLE IF NOT EXISTS stock_finance_indicator(
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司财务指标表";
 
 CREATE TABLE IF NOT EXISTS stock_finance_audit(
+    id int primary key auto_increment,
     ts_code	varchar(20) comment "TS股票代码",
     end_date date comment "报告期",
 	ann_date date comment "公告日期",
 	audit_result varchar(2000) comment "审计结果",
 	audit_fees	float comment "审计总费用（元）",
 	audit_agency varchar(300) comment "会计事务所",
-	audit_sign	varchar(200) comment "签字会计师",
-    unique key(ts_code,end_date)
+	audit_sign	varchar(200) comment "签字会计师"
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司财务审计意见表";
 
 
 CREATE TABLE IF NOT EXISTS stock_finance_mainbz(
+   id int primary key auto_increment,
     ts_code	varchar(20) comment "TS代码",
 	end_date date comment "报告期",
 	bz_item	varchar(500) comment "主营业务来源",
@@ -624,18 +625,17 @@ CREATE TABLE IF NOT EXISTS stock_finance_mainbz(
 	bz_profit float comment "主营业务利润(元)",
 	bz_cost	float comment "主营业务成本(元)",
 	curr_type varchar(20) comment "货币代码",
-	update_flag varchar(20) comment "是否更新",
-    unique key(ts_code,end_date)
+	update_flag varchar(20) comment "是否更新"
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司主营业务表";
 
 CREATE TABLE IF NOT EXISTS stock_finance_disclosure_date(
+    id int primary key auto_increment,
  	ts_code varchar(20) comment "TS代码",
   	end_date date comment "报告期",
 	ann_date date comment "最新披露公告日",
 	pre_date date comment "预计披露日期",
 	actual_date date comment "实际披露日期",
-	modify_date date comment "披露日期修正记录",
-    unique key(ts_code,end_date)
+	modify_date date comment "披露日期修正记录"
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "公司财务披露表";
 
 

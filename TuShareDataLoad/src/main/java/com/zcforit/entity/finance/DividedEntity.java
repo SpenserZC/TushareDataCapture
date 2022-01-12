@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
@@ -14,10 +15,12 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
+@IdClass(IdKeys.class)
 @Table(name="stock_finance_divided")
 public class DividedEntity {
     @Id
     private String tsCode; //str	Y	TS代码
+    @Id
     private String endDate; //str	Y	分红年度
     private String annDate; //str	Y	预案公告日
     private String divProc; //str	Y	实施进度

@@ -2,9 +2,7 @@ package com.zcforit.entity.finance;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author zhang cheng
@@ -17,6 +15,8 @@ import javax.persistence.Table;
 @Table(name="stock_finance_audit")
 public class FinanceAuditEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; //自增id
     private String tsCode; //str	TS股票代码
     private String endDate; //str	报告期
     private String annDate; //str	公告日期

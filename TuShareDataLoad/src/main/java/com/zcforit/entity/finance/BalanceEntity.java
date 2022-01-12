@@ -2,9 +2,7 @@ package com.zcforit.entity.finance;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author zhang cheng
@@ -14,10 +12,12 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@Table(name="stock_finance_balance")
+@IdClass(IdKeys.class)
+@Table(name = "stock_finance_balance")
 public class BalanceEntity {
     @Id
     private String tsCode; //	str	Y	TS股票代码
+    @Id
     private String endDate; //	str	Y	报告期
     private String annDate; //	str	Y	公告日期
     private String fAnnDate; //	str	Y	实际公告日期

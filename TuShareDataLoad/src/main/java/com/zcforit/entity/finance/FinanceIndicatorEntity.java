@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
@@ -14,10 +15,12 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
+@IdClass(IdKeys.class)
 @Table(name="stock_finance_indicator")
 public class FinanceIndicatorEntity {
     @Id
     private String tsCode;  //str	Y	TS代码
+    @Id
     private String endDate;  //str	Y	报告期
     private String annDate;  //str	Y	公告日期
     private String eps;  //float	Y	基本每股收益
