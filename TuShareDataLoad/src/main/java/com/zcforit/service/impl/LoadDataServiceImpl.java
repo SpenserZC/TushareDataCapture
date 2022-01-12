@@ -35,7 +35,7 @@ public class LoadDataServiceImpl implements LoadDataService {
 
     public void loadStockBasic(BaseRequest baseRequest){
         try{
-            List<StockBasicEntity> res = basicService.getTuShareData(baseRequest,new StockBasicEntity());
+            List<StockBasicEntity> res = basicService.getTuShareData(baseRequest,new StockBasicEntity()).get(0);
             basicService.saveToMySql(res,"StockBasicDao");
         }catch (Exception e){
             e.printStackTrace();
@@ -43,7 +43,7 @@ public class LoadDataServiceImpl implements LoadDataService {
     }
     public  List<StockNewShareEntity> loadNewStockCompany(BaseRequest baseRequest){
         try{
-            List<StockNewShareEntity> res = basicService.getTuShareData(baseRequest,new StockNewShareEntity());
+            List<StockNewShareEntity> res = basicService.getTuShareData(baseRequest,new StockNewShareEntity()).get(0);
             basicService.saveToMySql(res,"StockNewShareDao");
             return res;
         }catch (Exception e){
@@ -54,7 +54,7 @@ public class LoadDataServiceImpl implements LoadDataService {
 
     public void loadStockCompany(BaseRequest baseRequest){
         try{
-            List<StockCompanyEntity> res = basicService.getTuShareData(baseRequest,new StockCompanyEntity());
+            List<StockCompanyEntity> res = basicService.getTuShareData(baseRequest,new StockCompanyEntity()).get(0);
             basicService.saveToMySql(res,"StockCompanyDao");
         }catch (Exception e){
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class LoadDataServiceImpl implements LoadDataService {
     }
     public void loadStockCal(BaseRequest baseRequest){
         try{
-            List<TradeCalEntity> res = basicService.getTuShareData(baseRequest,new TradeCalEntity());
+            List<TradeCalEntity> res = basicService.getTuShareData(baseRequest,new TradeCalEntity()).get(0);
             basicService.saveToMySql(res,"TradeCalDao");
         }catch (Exception e){
             e.printStackTrace();

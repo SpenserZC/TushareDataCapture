@@ -55,7 +55,7 @@ public class BasicController implements ApplicationRunner {
         StockBasicDTO dto = new StockBasicDTO();
         BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockBasicEntity(), config.getToken());
         try{
-            List<StockBasicEntity> res = basicService.getTuShareData(baseRequest,new StockBasicEntity());
+            List<StockBasicEntity> res = basicService.getTuShareData(baseRequest,new StockBasicEntity()).get(0);
             basicService.saveToMySql(res,"StockBasicDao");
         }catch (Exception e){
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class BasicController implements ApplicationRunner {
         dto.setApiName("stock_company");
         BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new StockCompanyEntity(), config.getToken());
         try{
-            List<StockCompanyEntity> res = basicService.getTuShareData(baseRequest,new StockCompanyEntity());
+            List<StockCompanyEntity> res = basicService.getTuShareData(baseRequest,new StockCompanyEntity()).get(0);
             basicService.saveToMySql(res,"StockCompanyDao");
         }catch (Exception e){
             e.printStackTrace();
@@ -79,7 +79,7 @@ public class BasicController implements ApplicationRunner {
         dto.setIsOpen("1");
         BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new TradeCalEntity(), config.getToken());
         try{
-            List<TradeCalEntity> res = basicService.getTuShareData(baseRequest,new TradeCalEntity());
+            List<TradeCalEntity> res = basicService.getTuShareData(baseRequest,new TradeCalEntity()).get(0);
             basicService.saveToMySql(res,"TradeCalDao");
         }catch (Exception e){
             e.printStackTrace();

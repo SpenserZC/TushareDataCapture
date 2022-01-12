@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhang cheng
@@ -37,8 +38,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("income");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new IncomeEntity(), config.getToken());
-            List<IncomeEntity> res = basicService.getTuShareData(baseRequest,new IncomeEntity());
-            basicService.saveToMySql(res,"IncomeDao");
+            Map<Integer, List<IncomeEntity>> map = basicService.getTuShareData(baseRequest, new IncomeEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"IncomeDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new IncomeEntity()).get(0),"IncomeDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -48,7 +55,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceIncome(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -61,8 +68,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("balancesheet");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new BalanceEntity(), config.getToken());
-            List<BalanceEntity> res = basicService.getTuShareData(baseRequest,new BalanceEntity());
-            basicService.saveToMySql(res,"BalanceDao");
+            Map<Integer, List<BalanceEntity>> map = basicService.getTuShareData(baseRequest, new BalanceEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"BalanceDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new BalanceEntity()).get(0),"BalanceDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -73,7 +86,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceBalance(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -86,8 +99,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("cashflow");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new CashFlowEntity(), config.getToken());
-            List<CashFlowEntity> res = basicService.getTuShareData(baseRequest,new CashFlowEntity());
-            basicService.saveToMySql(res,"CashFlowDao");
+            Map<Integer, List<CashFlowEntity>> map = basicService.getTuShareData(baseRequest, new CashFlowEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"CashFlowDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new CashFlowEntity()).get(0),"CashFlowDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -98,7 +117,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceCashFlow(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -111,8 +130,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("forecast");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new ForecastEntity(), config.getToken());
-            List<ForecastEntity> res = basicService.getTuShareData(baseRequest,new ForecastEntity());
-            basicService.saveToMySql(res,"ForecastDao");
+            Map<Integer, List<ForecastEntity>> map = basicService.getTuShareData(baseRequest, new ForecastEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"ForecastDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new ForecastEntity()).get(0),"ForecastDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -123,7 +148,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceForecast(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -137,8 +162,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("express");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new ExpressEntity(), config.getToken());
-            List<ExpressEntity> res = basicService.getTuShareData(baseRequest,new ExpressEntity());
-            basicService.saveToMySql(res,"ExpressDao");
+            Map<Integer, List<ExpressEntity>> map = basicService.getTuShareData(baseRequest, new ExpressEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"ExpressDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new ExpressEntity()).get(0),"ExpressDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -149,7 +180,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceExpress(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -162,8 +193,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("dividend");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new DividedEntity(), config.getToken());
-            List<DividedEntity> res = basicService.getTuShareData(baseRequest,new DividedEntity());
-            basicService.saveToMySql(res,"DividedDao");
+            Map<Integer, List<DividedEntity>> map = basicService.getTuShareData(baseRequest, new DividedEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"DividedDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new DividedEntity()).get(0),"DividedDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -174,7 +211,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceDivided(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -187,8 +224,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("fina_indicator");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FinanceIndicatorEntity(), config.getToken());
-            List<FinanceIndicatorEntity> res = basicService.getTuShareData(baseRequest,new FinanceIndicatorEntity());
-            basicService.saveToMySql(res,"FinanceIndicatorDao");
+            Map<Integer, List<FinanceIndicatorEntity>> map = basicService.getTuShareData(baseRequest, new FinanceIndicatorEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"FinanceIndicatorDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new FinanceIndicatorEntity()).get(0),"FinanceIndicatorDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -199,7 +242,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceIndicator(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -212,8 +255,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("fina_audit");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FinanceAuditEntity(), config.getToken());
-            List<FinanceAuditEntity> res = basicService.getTuShareData(baseRequest,new FinanceAuditEntity());
-            basicService.saveToMySql(res,"FinanceAuditDao");
+            Map<Integer, List<FinanceAuditEntity>> map = basicService.getTuShareData(baseRequest, new FinanceAuditEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"FinanceAuditDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new FinanceAuditEntity()).get(0),"FinanceAuditDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -224,7 +273,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceAudit(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -237,8 +286,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("fina_mainbz");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FinanceMainbzEntity(), config.getToken());
-            List<FinanceMainbzEntity> res = basicService.getTuShareData(baseRequest,new FinanceMainbzEntity());
-            basicService.saveToMySql(res,"FinanceMainbzDao");
+            Map<Integer, List<FinanceMainbzEntity>> map = basicService.getTuShareData(baseRequest, new FinanceMainbzEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"FinanceMainbzDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new FinanceMainbzEntity()).get(0),"FinanceMainbzDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -249,7 +304,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceMainbz(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -262,8 +317,14 @@ public class FinanceServiceImpl implements FinanceService {
             dto.setTsCode(stock);
             dto.setApiName("disclosure_date");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new DisclosureDateEntity(), config.getToken());
-            List<DisclosureDateEntity> res = basicService.getTuShareData(baseRequest,new DisclosureDateEntity());
-            basicService.saveToMySql(res,"DisclosureDateDao");
+            Map<Integer, List<DisclosureDateEntity>> map = basicService.getTuShareData(baseRequest, new DisclosureDateEntity());
+            if(map.containsKey(0)){
+                basicService.saveToMySql(map.get(0),"DisclosureDateDao");
+            }else if(map.containsKey(2)){
+                Thread.sleep(10000l);
+                if(map.containsKey(0))
+                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new DisclosureDateEntity()).get(0),"DisclosureDateDao");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -274,7 +335,7 @@ public class FinanceServiceImpl implements FinanceService {
             List<StockBasicEntity> allStock = mysqlService.getAllStock();
             for (StockBasicEntity basicEntity: allStock) {
                 loadFinanceDisclosureDate(basicEntity.getTsCode());
-                Thread.sleep(200);
+                Thread.sleep(300l);
             }
         }catch (Exception e){
             e.printStackTrace();
