@@ -1,5 +1,6 @@
 package com.zcforit.entity.quotation;
 
+import com.zcforit.entity.keys.TradeDateKeys;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@IdClass(QuotationKeys.class)
+@IdClass(TradeDateKeys.class)
 @Table(name="stock_quotation_daily_indicator")
 public class DailyIndicatorEntity {
     @Id

@@ -1,5 +1,6 @@
 package com.zcforit.entity.finance;
 
+import com.zcforit.entity.keys.EndDateKeys;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@IdClass(IdKeys.class)
+@IdClass(EndDateKeys.class)
 @Table(name="stock_finance_income")
 public class IncomeEntity {
     @Id

@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,7 +60,7 @@ public class InitController implements ApplicationRunner {
         service.loadGGTCapitalFlowsTop10();
         service.loadHSGTHoldStock();
         service.loadGGTDailyBuyStock();
-        service.loadGGTMonthlyBuyStock();
+//        service.loadGGTMonthlyBuyStock();
         service.loadCenterHoldStock();
         System.exit(0);
     }

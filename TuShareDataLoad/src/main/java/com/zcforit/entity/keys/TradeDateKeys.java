@@ -1,4 +1,4 @@
-package com.zcforit.entity.finance;
+package com.zcforit.entity.keys;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * @author zhang cheng
@@ -18,7 +17,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class IdKeys implements Serializable {
+public class TradeDateKeys implements Serializable {
     protected String tsCode;
-    protected String endDate;
+    protected String tradeDate;
 }

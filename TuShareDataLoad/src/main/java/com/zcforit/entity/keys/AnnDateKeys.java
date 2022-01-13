@@ -1,4 +1,4 @@
-package com.zcforit.entity.quotation;
+package com.zcforit.entity.keys;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class QuotationKeys implements Serializable {
+public class AnnDateKeys implements Serializable {
     protected String tsCode;
-    protected String tradeDate;
+    protected String annDate;
 }
