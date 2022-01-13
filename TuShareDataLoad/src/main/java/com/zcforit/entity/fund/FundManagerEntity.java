@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "fund_manager")
-public class FundManager {
+public class FundManagerEntity {
     @Id
     private String tsCode; //基金代码
     private String annDate; //公告日期

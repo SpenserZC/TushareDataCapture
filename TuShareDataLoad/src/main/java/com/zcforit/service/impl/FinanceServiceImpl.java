@@ -2,7 +2,7 @@ package com.zcforit.service.impl;
 
 import com.zcforit.config.TuShareConfig;
 import com.zcforit.dto.BaseRequest;
-import com.zcforit.dto.FinanceRequest;
+import com.zcforit.dto.finance.FinanceRequestDTO;
 import com.zcforit.entity.base.StockBasicEntity;
 import com.zcforit.entity.finance.*;
 import com.zcforit.service.BasicService;
@@ -34,7 +34,7 @@ public class FinanceServiceImpl implements FinanceService {
 
    public void loadFinanceIncome(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("income");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new IncomeEntity(), config.getToken());
@@ -64,7 +64,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceBalance(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("balancesheet");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new BalanceEntity(), config.getToken());
@@ -95,7 +95,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceCashFlow(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("cashflow");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new CashFlowEntity(), config.getToken());
@@ -126,7 +126,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceForecast(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("forecast");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new ForecastEntity(), config.getToken());
@@ -158,7 +158,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceExpress(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("express");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new ExpressEntity(), config.getToken());
@@ -189,7 +189,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceDivided(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("dividend");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new DividedEntity(), config.getToken());
@@ -220,7 +220,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceIndicator(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("fina_indicator");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FinanceIndicatorEntity(), config.getToken());
@@ -251,7 +251,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceAudit(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("fina_audit");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FinanceAuditEntity(), config.getToken());
@@ -282,7 +282,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceMainbz(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("fina_mainbz");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FinanceMainbzEntity(), config.getToken());
@@ -313,7 +313,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     public void loadFinanceDisclosureDate(String stock){
         try{
-            FinanceRequest dto = new FinanceRequest();
+            FinanceRequestDTO dto = new FinanceRequestDTO();
             dto.setTsCode(stock);
             dto.setApiName("disclosure_date");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new DisclosureDateEntity(), config.getToken());

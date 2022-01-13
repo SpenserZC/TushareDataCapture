@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS fund_basic(
     p_value float   comment "面值",
     min_amount  float   comment "起点金额(万元)",
     exp_return  float   comment "预期收益率",
-    benchmark   varchar(50) comment "业绩比较基准",
+    benchmark   varchar(200) comment "业绩比较基准",
     `status`  varchar(20) comment "存续状态D摘牌 I发行 L已上市",
     invest_type varchar(50) comment "投资风格",
     `type`   varchar(50) comment "基金类型",

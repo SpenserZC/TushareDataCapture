@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "fund_company")
-public class FundCompany {
+public class FundCompanyEntity {
     @Id
     private String name; //基金公司名称
     private String shortname; //简称

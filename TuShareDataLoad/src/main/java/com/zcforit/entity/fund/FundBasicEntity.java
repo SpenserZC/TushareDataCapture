@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "fund_basic")
-public class FundBasic {
+public class FundBasicEntity {
     @Id
     private String tsCode; //基金代码
     private String name; //简称

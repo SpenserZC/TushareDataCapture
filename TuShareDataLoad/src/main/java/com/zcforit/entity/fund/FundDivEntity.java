@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Entity
 @IdClass(AnnDateKeys.class)
 @Table(name="fund_div")
-public class FundDiv {
+public class FundDivEntity {
     @Id
     private String tsCode;  //TS代码
     @Id

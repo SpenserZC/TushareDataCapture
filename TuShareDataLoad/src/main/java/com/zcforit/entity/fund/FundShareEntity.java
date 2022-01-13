@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Entity
 @IdClass(TradeDateKeys.class)
 @Table(name = "fund_share")
-public class FundShare {
+public class FundShareEntity {
     @Id
     private String tsCode; //基金代码，支持多只基金同时提取，用逗号分隔
     @Id

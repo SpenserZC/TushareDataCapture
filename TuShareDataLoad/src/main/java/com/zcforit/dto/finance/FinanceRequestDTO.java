@@ -1,4 +1,4 @@
-package com.zcforit.dto;
+package com.zcforit.dto.finance;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2022/1/5 20:05
  */
 @Data
-public class FinanceRequest {
+public class FinanceRequestDTO {
     private String apiName;
     private String tsCode; //str	Y	股票代码
     private String annDate; //str	N	公告日期(YYYYMMDD格式，下同)

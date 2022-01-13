@@ -16,7 +16,8 @@ spring:
       - classpath:sql/schema_quotation.sql
       - classpath:sql/schema_finance.sql
       - classpath:sql/schema_fund.sql
-    initialization-mode: always
+#    initialization-mode: always
+    initialization-mode: never
     url: jdbc:mysql://152.136.98.160:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
 #    url: jdbc:mysql://localhost:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: tushare
@@ -62,7 +63,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-      ddl-auto: update
+      ddl-auto: none
 tushare:
   token1: 08812da961c3edd56e0a31e999b893e2b926d144b1c1df9cd2237e16
   token2: 325114407edee775609e7b370eac76e9ad9558798958fbd92ea0eead
