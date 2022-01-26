@@ -2,8 +2,10 @@ package com.zcforit.service.impl;
 
 import com.zcforit.entity.base.StockBasicEntity;
 import com.zcforit.entity.base.TradeCalEntity;
+import com.zcforit.entity.fund.FundBasicEntity;
 import com.zcforit.repository.base.StockBasicDao;
 import com.zcforit.repository.base.TradeCalDao;
+import com.zcforit.repository.fund.FundBasicDao;
 import com.zcforit.repository.quotation.*;
 import com.zcforit.service.MysqlService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,8 @@ public class MysqlServiceImpl implements MysqlService {
     @Autowired
     HSTCapitalFlowsTop10Dao hstCapitalFlowsTop10Dao;
 
+    @Autowired
+    FundBasicDao fundBasicDao;
 
 
 
@@ -77,6 +81,9 @@ public class MysqlServiceImpl implements MysqlService {
 
     public List<StockBasicEntity> getAllStock(){
         return  stockBasicDao.findAll();
+    }
+    public List<FundBasicEntity> getAllFund(){
+        return  fundBasicDao.findAll();
     }
     public String getCapitalFlowsLastDay(){return capitalFlowsDao.findLastDate();}
     public String getCenterHoldStockLastDay(){return centerHoldStockDao.findLastDate();}

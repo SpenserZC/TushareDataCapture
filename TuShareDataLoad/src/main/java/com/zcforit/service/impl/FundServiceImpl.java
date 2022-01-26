@@ -13,6 +13,7 @@ import com.zcforit.utils.TuShareUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,11 +35,8 @@ public class FundServiceImpl  implements FundService {
     @Autowired
     TuShareConfig config;
 
-    public void loadFundBasic(){
+    public void loadFundBasic(FundRequestDTO dto){
         try{
-            FundRequestDTO dto = new FundRequestDTO();
-            dto.setApiName("fund_basic");
-            dto.setStatus("L");
             BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FundBasicEntity(), config.getToken());
             Map<Integer, List<FundBasicEntity>> map = basicService.getTuShareData(baseRequest, new FundBasicEntity());
             if(map.containsKey(0)){
@@ -75,15 +73,16 @@ public class FundServiceImpl  implements FundService {
         try{
             FundRequestDTO dto = new FundRequestDTO();
             dto.setApiName("fund_manager");
-            BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FundManagerEntity(), config.getToken());
-            Map<Integer, List<FundManagerEntity>> map = basicService.getTuShareData(baseRequest, new FundManagerEntity());
-            if(map.containsKey(0)){
-                basicService.saveToMySql(map.get(0),"FundManagerDao");
-            }else if(map.containsKey(2)){
-                Thread.sleep(10000l);
-                if(map.containsKey(0))
-                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new FundManagerEntity()).get(0),"FundManagerDao");
+            List<FundManagerEntity> list=new ArrayList<>();
+            for (int i=0;;i++){
+                dto.setLimit(5000);
+                dto.setOffset(i*5000+1);
+                BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FundManagerEntity(), config.getToken());
+                Map<Integer, List<FundManagerEntity>> map = basicService.getTuShareData(baseRequest, new FundManagerEntity());
+                if(map.containsKey(0))list.addAll(map.get(0));
+                if(map.get(0).size()<5000)break;
             }
+            basicService.saveToMySql(list,"FundManagerDao");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -91,16 +90,15 @@ public class FundServiceImpl  implements FundService {
 
     public void loadShare(){
         try{
-            FundRequestDTO dto = new FundRequestDTO();
-            dto.setApiName("fund_share");
-            BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FundShareEntity(), config.getToken());
-            Map<Integer, List<FundShareEntity>> map = basicService.getTuShareData(baseRequest, new FundShareEntity());
-            if(map.containsKey(0)){
-                basicService.saveToMySql(map.get(0),"FundShareDao");
-            }else if(map.containsKey(2)){
-                Thread.sleep(10000l);
+            List<FundBasicEntity> allFund = mysqlService.getAllFund();
+            for (FundBasicEntity fund:allFund) {
+                FundRequestDTO dto = new FundRequestDTO();
+                dto.setApiName("fund_share");
+                dto.setTsCode(fund.getTsCode());
+                BaseRequest baseRequest = TuShareUtils.transBaseRequest(dto, new FundShareEntity(), config.getToken());
+                Map<Integer, List<FundShareEntity>> map = basicService.getTuShareData(baseRequest, new FundShareEntity());
                 if(map.containsKey(0))
-                    basicService.saveToMySql(basicService.getTuShareData(baseRequest, new FundShareEntity()).get(0),"FundShareDao");
+                basicService.saveToMySql(map.get(0),"FundShareDao");
             }
         }catch (Exception e){
             e.printStackTrace();

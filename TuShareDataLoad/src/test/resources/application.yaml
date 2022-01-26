@@ -1,0 +1,73 @@
+http:
+  pool:
+    maxTotal: 500
+    defaultMaxPerRoute: 300
+    #设置连接超时时间，单位毫秒
+    connectTimeout: 10000
+    #http clilent中从connetcion pool中获得一个connection的超时时间,单位毫秒
+    connectionRequestTimeout: 500
+    #请求获取数据的超时时间，单位毫秒。 如果访问一个接口，多少时间内无法返回数据，就直接放弃此次调用
+    socketTimeout: 15000
+    validateAfterInactivity: 2000
+spring:
+  datasource:
+    schema:
+      - classpath:sql/schema_basic.sql
+      - classpath:sql/schema_quotation.sql
+      - classpath:sql/schema_finance.sql
+      - classpath:sql/schema_fund.sql
+#    initialization-mode: always
+    initialization-mode: never
+    url: jdbc:mysql://152.136.98.160:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#    url: jdbc:mysql://localhost:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: tushare
+    password: tushare
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      db-type: mysql
+      enable: true
+      initialSize: 50
+      minIdle: 50
+      maxActive: 500
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 'x'
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idl--viction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      filters: stat,wall
+      filter:
+        wall:
+          enabled: true
+          config:
+            commentAllow: true
+            multiStatementAllow: true
+            noneBaseStatementAllow: true
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js , *.gif ,*.jpg ,*.png ,*.css ,*.ico , /druid/*"
+        session-stat-max-count: 1000
+        profile-enable: true
+        session-stat-enable: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: 123456
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=1
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+      ddl-auto: none
+tushare:
+  token1: 08812da961c3edd56e0a31e999b893e2b926d144b1c1df9cd2237e16
+  token2: 325114407edee775609e7b370eac76e9ad9558798958fbd92ea0eead
+  url: "http://api.waditu.com"
+
+server:
+  port: 9000

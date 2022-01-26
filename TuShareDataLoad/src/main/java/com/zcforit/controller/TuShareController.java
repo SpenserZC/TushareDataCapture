@@ -28,8 +28,8 @@ import java.util.List;
  * @date 2021/12/14 20:16
  */
 @Slf4j
-//@RestController
-//@RequestMapping("/tushare")
+@RestController
+@RequestMapping("/tushare")
 public class TuShareController {
     @Autowired
     MysqlService mysqlService;

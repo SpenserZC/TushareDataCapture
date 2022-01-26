@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,6 +83,9 @@ public class BasicQuotaServiceImpl implements BasicQuotaService {
      */
     public List<TradeCalEntity> getDatesList(String start, String end){
         TradeCalDTO dto = new TradeCalDTO();
+        if(start.contains("-")){
+            start= start.replaceAll("-", "");
+        }
         dto.setStartDate(start);
         dto.setEndDate(end);
         dto.setIsOpen("1");

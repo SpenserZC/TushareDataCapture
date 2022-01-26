@@ -1,5 +1,6 @@
 package com.zcforit.controller;
 
+import com.zcforit.dto.fund.FundRequestDTO;
 import com.zcforit.service.FundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -12,14 +13,23 @@ import org.springframework.stereotype.Controller;
  * @description: 基金接口
  * @date : 2022-01-13 21:54
  */
-@Controller
+//@Controller
 public class FundController implements ApplicationRunner {
     @Autowired
     FundService fundService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-            fundService.loadFundBasic();
-
+        loadFundBasic();
     }
+
+    public void loadFundBasic(){
+        FundRequestDTO dto = new FundRequestDTO();
+        dto.setApiName("fund_basic");
+        dto.setStatus("L");
+        dto.setMarket("E");
+        fundService.loadFundBasic(dto);
+    }
+
+
 }

@@ -60,7 +60,7 @@ public class HttpComponent {
             httpHeaders.add(stringStringEntry.getKey(), stringStringEntry.getValue());
         }
         HttpEntity httpEntity = new HttpEntity(jsonObject, httpHeaders);
-        log.info("response: " + httpEntity.getHeaders());
+        log.info("response: " + httpEntity.toString());
         JSONObject result = restTemplate.postForObject(url, httpEntity, JSONObject.class);
         return result;
     }

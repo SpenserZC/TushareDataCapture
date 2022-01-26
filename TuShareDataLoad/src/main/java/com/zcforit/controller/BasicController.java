@@ -11,12 +11,14 @@ import com.zcforit.entity.base.StockCompanyEntity;
 import com.zcforit.entity.base.TradeCalEntity;
 import com.zcforit.entity.quotation.*;
 import com.zcforit.repository.base.TradeCalDao;
+import com.zcforit.service.BasicQuotaService;
 import com.zcforit.service.BasicService;
 import com.zcforit.utils.TuShareUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -37,17 +39,19 @@ public class BasicController implements ApplicationRunner {
 
     @Autowired
     TuShareConfig config;
-
+    @Autowired
+    BasicQuotaService basicQuotaService;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        loadStockBasic();
-        loadStockCompany();
-        loadStockCal();
-        loadDaily();
-        loadWeekly();
-        loadMonthly();
-        loadDailyIndicator();
-        loadCashFlows();
+        basicQuotaService.getDatesList("20220117","20220124");
+        //        loadStockBasic();
+//        loadStockCompany();
+//        loadStockCal();
+//        loadDaily();
+//        loadWeekly();
+//        loadMonthly();
+//        loadDailyIndicator();
+//        loadCashFlows();
         System.exit(0);
     }
 

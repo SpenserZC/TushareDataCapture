@@ -1,6 +1,7 @@
 package com.zcforit.service;
 
 import com.zcforit.entity.base.StockBasicEntity;
+import com.zcforit.entity.fund.FundBasicEntity;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ public interface MysqlService {
      */
     public List<StockBasicEntity> getAllStock();
 
+    /**
+     * 获取所有的fund
+     * @return
+     */
+    public List<FundBasicEntity> getAllFund();
     public String getCapitalFlowsLastDay();
     public String getCenterHoldStockLastDay();
     public String getDailyIndicatorLastDay();
@@ -36,6 +42,4 @@ public interface MysqlService {
     public String getHSGTCapitalFlowsLastDay();
     public String getHSGTHoldStockLastDay();
     public String getHSTCapitalFlowsTop10LastDay();
-
-
 }
