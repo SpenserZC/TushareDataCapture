@@ -29,6 +29,7 @@ public interface MysqlService {
      * @return
      */
     public List<FundBasicEntity> getAllFund();
+
     public String getCapitalFlowsLastDay();
     public String getCenterHoldStockLastDay();
     public String getDailyIndicatorLastDay();

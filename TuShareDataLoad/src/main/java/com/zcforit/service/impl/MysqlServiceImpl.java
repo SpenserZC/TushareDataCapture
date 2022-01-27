@@ -7,6 +7,7 @@ import com.zcforit.repository.base.StockBasicDao;
 import com.zcforit.repository.base.TradeCalDao;
 import com.zcforit.repository.fund.FundBasicDao;
 import com.zcforit.repository.quotation.*;
+import com.zcforit.service.BasicQuotaService;
 import com.zcforit.service.MysqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -64,7 +65,6 @@ public class MysqlServiceImpl implements MysqlService {
     FundBasicDao fundBasicDao;
 
 
-
     public String getCalLastDate(){
         String res="";
         try{
@@ -85,6 +85,7 @@ public class MysqlServiceImpl implements MysqlService {
     public List<FundBasicEntity> getAllFund(){
         return  fundBasicDao.findAll();
     }
+
     public String getCapitalFlowsLastDay(){return capitalFlowsDao.findLastDate();}
     public String getCenterHoldStockLastDay(){return centerHoldStockDao.findLastDate();}
     public String getDailyIndicatorLastDay(){return dailyIndicatorDao.findLastDate();}

@@ -28,5 +28,30 @@ public interface FundService {
     /**
      * 拉去基金规模
      */
-    public void loadShare();
+    public void loadShare(FundRequestDTO dto);
+
+    /**
+     * 拉去基金净值
+     */
+    public void loadNav(FundRequestDTO dto);
+
+    /**
+     * 拉去基金分红
+     */
+    public void loadDiv(FundRequestDTO dto);
+
+    /**
+     * 拉取基金持仓
+     */
+    public void loadPortfolio(FundRequestDTO dto);
+
+    /**
+     * 拉去基金行情
+     */
+    public void loadDaily(FundRequestDTO dto);
+
+    /**
+     *拉去基金复权因子
+     */
+    public void loadAdj();
 }

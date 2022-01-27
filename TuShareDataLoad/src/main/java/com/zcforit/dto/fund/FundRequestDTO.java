@@ -16,4 +16,7 @@ public class FundRequestDTO {
     private String status;	//str	N	存续状态 D摘牌 I发行 L上市中
     private Integer offset; //	intint	N	开始行数
     private Integer limit; //	int	N	每页行数
+    private String startDate;
+    private String endDate;
+    private String tradeDate;
 }

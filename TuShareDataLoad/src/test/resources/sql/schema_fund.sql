@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS fund_portfolio(
     amount  float   comment "持有股票数量（股）",
     stk_mkv_ratio   float   comment "占股票市值比",
     stk_float_ratio float   comment "占流通股本比例",
-    primary key (ts_code,ann_date)
+    primary key (ts_code,ann_date,symbol)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "基金持仓";
 
 CREATE TABLE IF NOT EXISTS fund_daily(
