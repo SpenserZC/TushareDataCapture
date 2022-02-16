@@ -22,3 +22,18 @@ CREATE TABLE IF NOT EXISTS ak_stock_board_industry_cons_ths(
     pe varchar(20) COMMENT "市盈率",
     primary key (industry_code,code)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "同花顺行业成份股";
+
+CREATE TABLE IF NOT EXISTS ak_stock_board_industry_index_ths(
+    industry_code varchar(20) COMMENT "行业代码",
+    `date` varchar(20) COMMENT "日期",
+    industry_name varchar(50) COMMENT "行业名称",
+    `open`  float comment "开盘价",
+    high  float comment "最高价",
+    low  float comment "最低价",
+    `close`  float comment "收盘价",
+    vol  float comment "成交量 （手）",
+    amount  float comment "成交额 （千元）",
+    primary key (industry_code,`date`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "同花顺行业指数";
+
+
