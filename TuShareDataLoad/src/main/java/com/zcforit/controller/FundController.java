@@ -19,7 +19,7 @@ import java.util.List;
  * @description: 基金接口
  * @date : 2022-01-13 21:54
  */
-@Controller
+//@Controller
 public class FundController implements ApplicationRunner {
     @Autowired
     FundService fundService;
