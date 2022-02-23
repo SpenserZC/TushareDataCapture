@@ -39,8 +39,8 @@ class EmZdtCapture:
             EmZdtCapture.em_zt(self, date)
 
     # 获取所有涨停数据
-    def all_em_zt(self):
-        cal = DataLoad.get_cal(dl, "20200101", "20220218")
+    def all_em_zt(self,start,end):
+        cal = DataLoad.get_cal(dl, start,end)
         for idx, data in cal.iterrows():
             EmZdtCapture.em_zt(self, data[0])
             time.sleep(0.5)
@@ -73,8 +73,8 @@ class EmZdtCapture:
                 EmZdtCapture.em_dt(self, date)
 
     # 获取所有跌停数据
-    def all_em_dt(self):
-        cal = DataLoad.get_cal(dl, "20200109", "20220218")
+    def all_em_dt(self,start,end):
+        cal = DataLoad.get_cal(dl, start, end)
         for idx, data in cal.iterrows():
             EmZdtCapture.em_dt(self, data[0])
             time.sleep(0.5)

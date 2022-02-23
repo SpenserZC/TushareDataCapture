@@ -7,10 +7,8 @@ ths = ThsIndustryCapture()
 
 em = EmZdtCapture()
 # EmZdtCapture.all_em_zt(em)
-# EmZdtCapture.all_em_dt(em,"20220221","20220222")
-# EmZdtCapture.all_em_zt(em,"20220221","20220222")
+EmZdtCapture.em_dt(em,"20220223")
+EmZdtCapture.em_zt(em,"20220223")
 sm = StockMarket()
-# StockMarket.sh_market_init(sm,"20211227","20220223")
-StockMarket.sz_market_init(sm,"20211227","20220223")
-
-
+# StockMarket.sh_market_daily(sm,"20220223")
+# StockMarket.sz_market_daily(sm,"20220223")
