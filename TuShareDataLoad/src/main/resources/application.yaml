@@ -18,6 +18,7 @@ spring:
       - classpath:sql/schema_fund.sql
 #    initialization-mode: always
     initialization-mode: never
+    url: jdbc:mysql://152.136.98.160:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
 #    url: jdbc:mysql://localhost:3306/tushare?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: tushare
     password: tushare

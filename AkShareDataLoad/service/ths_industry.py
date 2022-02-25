@@ -59,13 +59,13 @@ class ThsIndustryCapture:
             print(name + "插入数据已导入")
             fail_cnt = 0
         except BaseException:
-            if fail_cnt > 5:
-                pass
-            fail_cnt += 1
-            print(code + ":" + name + "插入数据异常")
-            time.sleep(10)
-            ThsIndustryCapture.index_to_sql(self, code, name, start, end)
-
+            if fail_cnt < 5:
+                fail_cnt += 1
+                print(code + ":" + name + "插入数据异常")
+                time.sleep(10)
+                ThsIndustryCapture.index_to_sql(self, code, name, start, end)
+            else:
+                fail_cnt = 0
     # 获取所有行业指数
     def all_index_to_sql(self):
         stock_board_industry_name_ths = ak.stock_board_industry_name_ths()

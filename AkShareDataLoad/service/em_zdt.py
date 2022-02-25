@@ -31,13 +31,13 @@ class EmZdtCapture:
                 fail_cnt = 0
                 print(date + " 数据已插入")
         except BaseException:
-            if fail_cnt > 5:
-                pass
-            fail_cnt += 1
-            print(date + " 插入数据异常")
-            time.sleep(1)
-            EmZdtCapture.em_zt(self, date)
-
+            if fail_cnt < 5:
+                fail_cnt += 1
+                print(date + " 插入数据异常")
+                time.sleep(1)
+                EmZdtCapture.em_zt(self, date)
+            else:
+                fail_cnt = 0
     # 获取所有涨停数据
     def all_em_zt(self,start,end):
         cal = DataLoad.get_cal(dl, start,end)

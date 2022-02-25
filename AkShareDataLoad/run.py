@@ -1,4 +1,4 @@
-from service.ths import ThsIndustryCapture
+from service.ths_industry import ThsIndustryCapture
 from service.em_zdt import EmZdtCapture
 from service.a_stock_mark import StockMarket
 ths = ThsIndustryCapture()
@@ -11,6 +11,7 @@ em = EmZdtCapture()
 # EmZdtCapture.all_em_zt(em,"20220221","20220222")
 sm = StockMarket()
 # StockMarket.sh_market_init(sm,"20211227","20220223")
-StockMarket.sz_market_init(sm,"20211227","20220223")
-
+# StockMarket.sz_market_init(sm,"20211227","20220223")
+# StockMarket.sh_market_init_before(sm,"20201227","20211227")
+StockMarket.sz_market_init(sm,"20201227","20220223")
 
