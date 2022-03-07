@@ -10,8 +10,7 @@ dl = DataLoad()
 
 class StockMarket:
     # 根据日期获取上证股市总貌 2021-12-27以后
-    def sh_market_daily(self, date):
-        fail_cnt = 0;
+    def sh_market_daily(self, date,fail_cnt):
         try:
             stock_sse_deal_daily_df = ak.stock_sse_deal_daily(date=date)
             if stock_sse_deal_daily_df.empty:
@@ -23,26 +22,22 @@ class StockMarket:
                 stock_sse_summary_to_sql['market'] = stock_sse_summary_to_sql.index
                 stock_sse_summary_to_sql = stock_sse_summary_to_sql.drop(index='单日情况')
                 DataLoad.df_to_sql(dl, stock_sse_summary_to_sql, "ak_stock_a_sh_summary")
-                fail_cnt = 0
                 print(date + " 数据已插入")
         except BaseException:
-            if fail_cnt < 5:
-                fail_cnt += 1
-                print(date + " 插入数据异常")
+            fail_cnt_b = fail_cnt+1
+            if fail_cnt_b < 5:
+                print("上证股市总貌"+date + " 插入数据异常")
                 time.sleep(1)
-                StockMarket.sh_market_daily(self, date)
-            else:
-                fail_cnt = 0
+                StockMarket.sh_market_daily(self, date,fail_cnt_b)
 
-    def sh_market_init(self, start, end):
+    def sh_market_pull(self, start, end):
         cal = DataLoad.get_cal(dl, start, end)
         for idx, data in cal.iterrows():
-            StockMarket.sh_market_daily(self, data[0])
+            StockMarket.sh_market_daily(self, data[0],0)
             time.sleep(0.5)
 
-    # 根据日期获取上证股市总貌 2021-12-27一千
-    def sh_market_daily_before(self, date):
-        fail_cnt = 0;
+    # 根据日期获取上证股市总貌 2021-12-27以前
+    def sh_market_daily_before(self, date, fail_cnt):
         try:
             stock_sse_deal_daily_df = ak.stock_sse_deal_daily(date=date)
             if stock_sse_deal_daily_df.empty:
@@ -60,23 +55,20 @@ class StockMarket:
                 fail_cnt = 0
                 print(date + " 数据已插入")
         except BaseException:
-            if fail_cnt < 5:
-                fail_cnt += 1
+            fail_cnt_b = fail_cnt+1
+            if fail_cnt_b < 5:
                 print(date + " 插入数据异常")
                 time.sleep(1)
-                StockMarket.sh_market_daily_before(self, date)
-            else:
-                fail_cnt = 0
+                StockMarket.sh_market_daily_before(self, date,fail_cnt_b)
 
     def sh_market_init_before(self, start, end):
         cal = DataLoad.get_cal(dl, start, end)
         for idx, data in cal.iterrows():
-            StockMarket.sh_market_daily_before(self, data[0])
+            StockMarket.sh_market_daily_before(self, data[0],0)
             time.sleep(0.5)
 
-    # 根据日期获取上证股市总貌
-    def sz_market_daily(self, date):
-        fail_cnt = 0;
+    # 根据日期获取深证股市总貌
+    def sz_market_daily(self, date, fail_cnt):
         try:
             stock_szse_summary_df = ak.stock_szse_summary(date=date)
             if stock_szse_summary_df.empty:
@@ -95,16 +87,14 @@ class StockMarket:
                 fail_cnt = 0
                 print(date + " 数据已插入")
         except BaseException:
-            if fail_cnt < 5:
-                fail_cnt += 1
-                print(date + " 插入数据异常")
+            fail_cnt_b = fail_cnt + 1
+            if fail_cnt_b < 5:
+                print("深证股市总貌"+date + " 插入数据异常")
                 time.sleep(1)
-                StockMarket.sz_market_daily(self, date)
-            else:
-                fail_cnt = 0
+                StockMarket.sz_market_daily(self, date, fail_cnt_b)
 
-    def sz_market_init(self, start, end):
+    def sz_market_pull(self, start, end):
         cal = DataLoad.get_cal(dl, start, end)
         for idx, data in cal.iterrows():
-            StockMarket.sz_market_daily(self, data[0])
+            StockMarket.sz_market_daily(self, data[0],0)
             time.sleep(0.5)
