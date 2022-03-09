@@ -2,7 +2,7 @@ import time
 
 import akshare as ak
 import socket
-
+import numpy as np
 from models.df_mysql import DataLoad
 
 socket.setdefaulttimeout(5)
@@ -33,7 +33,9 @@ class ThsIndustryCapture:
             df_tosql.insert(df_tosql.shape[1], 'industry_name', name)
             df_tosql.columns = ["code", "name", "price", "pct_chg", "pct", "pct_rate", "turnover", "volume_ratio",
                                 "amp", "amount", "float_share", "circ_mv", "pe", "industry_code", "industry_name"]
-            DataLoad.df_to_sql(dl, stock_board_cons_ths_df, "ak_stock_board_industry_cons_ths")
+            df_tosql = df_tosql[~df_tosql['code'].str.contains('暂无成份股数据')]
+            df_tosql.replace("--", np.NaN, inplace=True)
+            DataLoad.df_to_sql(dl, df_tosql, "ak_stock_board_industry_cons_ths")
             print(name + "行业 成分股数据已导入")
         except TypeError:
             print(code + "获取行业代码异常")
@@ -44,7 +46,7 @@ class ThsIndustryCapture:
     def all_board_to_sql(self):
         stock_board_industry_name_ths = ak.stock_board_industry_name_ths()
         for idx, data in stock_board_industry_name_ths.iterrows():
-            ThsIndustryCapture.board_tosql(data[1], data[0])
+            ThsIndustryCapture.board_to_sql(self,data[1], data[0])
 
     # 根据行业code，name获取行业指数
     def index_to_sql(self, code, name, start, end, fail_cnt):

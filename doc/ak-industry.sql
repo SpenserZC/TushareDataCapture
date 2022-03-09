@@ -87,26 +87,6 @@ CREATE TABLE `ak_stock_ansysis_zdt_em` (
    PRIMARY KEY (`date`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30071 DEFAULT CHARSET=utf8
 
-INSERT into ak_stock_ansysis_zdt_em 
-select s.`date`,COUNT(DISTINCT(codea)) as zt,COUNT(DISTINCT(codeb)) as dt 
-	from (
-		select 
-			a.`date`,
-			a.stock_code codea,
-			b.stock_code codeb
-		from ak_stock_zdt_zt_pool_em a left join 
-			ak_stock_zdt_dt_pool_em b on a.`date` =b.`date` 
-				UNION 
-		select 
-			a.`date`,
-			a.stock_code codea,
-			b.stock_code codeb
-		from ak_stock_zdt_zt_pool_em a right join 
-			ak_stock_zdt_dt_pool_em b on a.`date` =b.`date` 
-	)s GROUP BY s.`date` HAVING `date` = '2022-02-23'
-
-
-
 
 
 CREATE TABLE `ak_stock_ansysis_market_zd_em` (
@@ -115,26 +95,6 @@ CREATE TABLE `ak_stock_ansysis_market_zd_em` (
    `pct_chg_mode` int COMMENT '涨跌幅',
    PRIMARY KEY (`date`,`stock_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30071 DEFAULT CHARSET=utf8
-
-
-INSERT into 
-	ak_stock_ansysis_market_zd_em 
-select 
-	trade_date as `date`,
-	SUBSTRING(ts_code,1,6) as stock_code,
-	 CASE
-	WHEN pct_chg BETWEEN 0 AND 2 THEN 1
-	WHEN pct_chg BETWEEN 2 AND 4 THEN 3
-	WHEN pct_chg BETWEEN 4 AND 6 THEN 5
-	WHEN pct_chg BETWEEN 6 AND 8 THEN 7
-	WHEN pct_chg > 8 THEN 9
-	WHEN pct_chg BETWEEN -2 AND 0 THEN -1
-	WHEN pct_chg BETWEEN -4 AND -2 THEN -3
-	WHEN pct_chg BETWEEN -6 AND -4 THEN -5
-	WHEN pct_chg BETWEEN -8 AND -6 THEN -7
-	WHEN pct_chg < -8 THEN -9
-	END AS pct_chg_mode
-	from stock_quotation_daily sqd where trade_date >'20200218'
 	
 
 CREATE TABLE `ak_stock_ansysis_zd_sum_em` (
@@ -165,6 +125,42 @@ select
 	COUNT(case WHEN pct_chg BETWEEN -6 AND -4 THEN pct_chg END) as d_2,
 	COUNT(case WHEN pct_chg BETWEEN -8 AND -6 THEN pct_chg END) as d_3,
 	COUNT(case WHEN pct_chg < -8 THEN pct_chg END) as d_4
-	from stock_quotation_daily where trade_date="20220223" group by trade_date 
+	from stock_quotation_daily where trade_date="20220308" group by trade_date
 
-	
+    INSERT into
+    ak_stock_ansysis_market_zd_em
+select
+    trade_date as `date`,
+    SUBSTRING(ts_code,1,6) as stock_code,
+    CASE
+        WHEN pct_chg BETWEEN 0 AND 2 THEN 1
+        WHEN pct_chg BETWEEN 2 AND 4 THEN 3
+        WHEN pct_chg BETWEEN 4 AND 6 THEN 5
+        WHEN pct_chg BETWEEN 6 AND 8 THEN 7
+        WHEN pct_chg > 8 THEN 9
+        WHEN pct_chg BETWEEN -2 AND 0 THEN -1
+        WHEN pct_chg BETWEEN -4 AND -2 THEN -3
+        WHEN pct_chg BETWEEN -6 AND -4 THEN -5
+        WHEN pct_chg BETWEEN -8 AND -6 THEN -7
+        WHEN pct_chg < -8 THEN -9
+        END AS pct_chg_mode
+from stock_quotation_daily sqd where trade_date ='20220308'
+
+INSERT into ak_stock_ansysis_zdt_em
+select s.`date`,COUNT(DISTINCT(codea)) as zt,COUNT(DISTINCT(codeb)) as dt
+from (
+         select
+             a.`date`,
+             a.stock_code codea,
+             b.stock_code codeb
+         from ak_stock_zdt_zt_pool_em a left join
+              ak_stock_zdt_dt_pool_em b on a.`date` =b.`date`
+         UNION
+         select
+             a.`date`,
+             a.stock_code codea,
+             b.stock_code codeb
+         from ak_stock_zdt_zt_pool_em a right join
+              ak_stock_zdt_dt_pool_em b on a.`date` =b.`date`
+     )s GROUP BY s.`date` HAVING `date` = '2022-03-08'
+

@@ -9,7 +9,7 @@ dl = DataLoad()
 class TushareDailyUpdate:
 
     # 根据日期获取上证股市总貌 2021-12-27以后
-    def stock_daily(self,date):
+    def stock_daily(self, date):
         try:
             pro = ts.pro_api()
             df = pro.daily(trade_date=date)
@@ -27,7 +27,7 @@ class TushareDailyUpdate:
             TushareDailyUpdate.stock_daily(self, data[0])
             time.sleep(0.5)
 
-    def stock_daily_ind(self,date):
+    def stock_daily_ind(self, date):
         try:
             pro = ts.pro_api()
             df = pro.daily_basic(trade_date=date)
@@ -57,7 +57,6 @@ class TushareDailyUpdate:
         except BaseException:
             print(date + " 插入数据异常")
 
-
     def money_flow_hsgt(self, date):
         try:
             pro = ts.pro_api()
@@ -69,7 +68,6 @@ class TushareDailyUpdate:
                 print(date + " 数据已插入")
         except BaseException:
             print(date + " 插入数据异常")
-
 
     def money_flow_hsgt_top(self, date):
         try:
@@ -83,8 +81,6 @@ class TushareDailyUpdate:
         except BaseException:
             print(date + " 插入数据异常")
 
-
-
     def money_flow_hsgt_hold(self, date):
         try:
             pro = ts.pro_api()
@@ -97,6 +93,20 @@ class TushareDailyUpdate:
         except BaseException:
             print(date + " 插入数据异常")
 
+    def money_flow_stock(self, date):
+        try:
+            pro = ts.pro_api()
+            df = pro.moneyflow(trade_date=date)
+            if df.empty:
+                print(date + "数据返回为空")
+            else:
+                DataLoad.df_to_sql(dl, df, "stock_quotation_capital_flows")
+                print(date + " 数据已插入")
+        except BaseException:
+            print(date + " 插入数据异常")
 
-
-
+    def money_flow_stock_all(self, start,end):
+        cal = DataLoad.get_cal(dl, start, end)
+        for idx, data in cal.iterrows():
+            TushareDailyUpdate.money_flow_stock(self, data[0])
+            time.sleep(0.5)
