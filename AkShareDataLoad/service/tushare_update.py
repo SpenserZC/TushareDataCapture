@@ -45,17 +45,6 @@ class TushareDailyUpdate:
             TushareDailyUpdate.stock_daily_ind(self, data[0])
             time.sleep(0.5)
 
-    def money_flow_hsgt(self, date):
-        try:
-            pro = ts.pro_api()
-            df = pro.query('moneyflow_hsgt', trade_date=date)
-            if df.empty:
-                print(date + "数据返回为空")
-            else:
-                DataLoad.df_to_sql(dl, df, "stock_quotation_hsgt_capital_flows")
-                print(date + " 数据已插入")
-        except BaseException:
-            print(date + " 插入数据异常")
 
     def money_flow_hsgt(self, date):
         try:
