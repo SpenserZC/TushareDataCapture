@@ -1,11 +1,11 @@
 # from . import db
-import tushare as ts
+import akshare as ak
+import datetime
 
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError
 
-conn = create_engine('mysql+pymysql://tushare:tushare@152.136.98.160:3306/tushare', encoding='utf8')
-ts.set_token("325114407edee775609e7b370eac76e9ad9558798958fbd92ea0eead")
+conn = create_engine('mysql+pymysql://akshare:akshare@114.115.167.87:10080/akshare', encoding='utf8')
 
 
 # 载入数据
@@ -17,6 +17,8 @@ class DataLoad:
         except IntegrityError:
             # Ignore duplicates
             pass
-    def get_cal(self, start, end):
-        pro = ts.pro_api()
-        return pro.trade_cal(start_date=start, end_date=end, fields='cal_date', is_open='1')
+    def get_cal(self, begin, end):
+        data = ak.tool_trade_date_hist_sina();
+        begin_date = datetime.datetime.strptime(begin, "%Y-%m-%d").date()
+        end_date = datetime.datetime.strptime(end, "%Y-%m-%d").date()
+        return data[(data['trade_date'] > begin_date) & (data['trade_date'] <= end_date) ]

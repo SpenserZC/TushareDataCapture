@@ -1,10 +1,8 @@
 from service.ths_industry import ThsIndustryCapture
 from service.em_zdt import EmZdtCapture
 from service.a_stock_mark import StockMarket
-from service.tushare_update import TushareDailyUpdate
 from service.ths_money_flow import ThsMoneyFlow
 
-tu = TushareDailyUpdate()
 ths = ThsIndustryCapture()
 em = EmZdtCapture()
 sm = StockMarket()
@@ -24,12 +22,5 @@ EmZdtCapture.em_dt_pull(em, date, date)
 EmZdtCapture.em_zt_pull(em, date, date)
 
 # 港股通和每日指标
-
-TushareDailyUpdate.money_flow_hsgt(tu, date)
-TushareDailyUpdate.money_flow_hsgt_top(tu, date)
-TushareDailyUpdate.money_flow_hsgt_hold(tu, date)
-TushareDailyUpdate.stock_daily(tu, date)
-TushareDailyUpdate.stock_daily_ind(tu, date)
-TushareDailyUpdate.money_flow_stock(tu, date)
 # ThsMoneyFlow.industry_money_flow(ths_mf,date)
 # ThsMoneyFlow.stock_money_flow(ths_mf,date)
