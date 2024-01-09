@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ak_stock_lhb_daily_detail(
+	code varchar(20) COMMENT " 代码	object	-",
+	act_date date   COMMENT "上榜日	object	-",
+	name varchar(20) COMMENT "名称	object	-",
+	unscramble varchar(2000)  COMMENT "解读	object	-",
+	price  float  COMMENT "收盘价	float64	-",
+	pct_chg  float COMMENT "涨跌幅	float64	注意单位: %",
+	lhb_net_buy_amount float  COMMENT "龙虎榜净买额	float64	注意单位: 元",
+	lhb_buy_amount	float  COMMENT "龙虎榜买入额	float64	注意单位: 元",
+	lhb_sale_amount	float  COMMENT "龙虎榜卖出额	float64	注意单位: 元",
+	lhb_all_amount	float  COMMENT "龙虎榜成交额	float64	注意单位: 元",
+	stock_all_amount	float  COMMENT "市场总成交额	int64	注意单位: 元",
+	net_buy_rate	float  COMMENT "净买额占总成交比	float64	注意单位: %",
+	buy_all_rate	float  COMMENT "成交额占总成交比	float64	注意单位: %",
+	turnover	float  COMMENT "换手率	float64	注意单位: %",
+	circ_mv	float  COMMENT "流通市值	float64	注意单位: 元",
+	reason	float  COMMENT "上榜原因	object	-",
+	after_1d	float  COMMENT "上榜后1日	float64	注意单位: %",
+	after_2d	float  COMMENT "上榜后2日	float64	注意单位: %",
+	after_3d	float  COMMENT "上榜后5日	float64	注意单位: %",
+	after_4d	float  COMMENT "上榜后10日	float64	注意单位: %",
+	primary key (code,act_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "A股龙虎榜数据表";
