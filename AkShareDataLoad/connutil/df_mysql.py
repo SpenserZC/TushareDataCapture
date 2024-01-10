@@ -5,7 +5,7 @@ import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError
 
-conn = create_engine('mysql+pymysql://akshare:akshare@114.115.167.87:10080/akshare')
+conn = create_engine('mysql+pymysql://****:****@114.115.167.87:****/****')
 
 
 # 载入数据

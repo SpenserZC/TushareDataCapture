@@ -3,7 +3,7 @@ from service.em_zdt import EmZdtCapture
 from service.a_stock_mark import StockMarket
 ths = ThsIndustryCapture()
 ThsIndustryCapture.all_industry(ths)
-ThsIndustryCapture.all_index_to_sql(ths,"20200218","20240108")
+ThsIndustryCapture.all_index_to_sql(ths,"20240108","20240110")
 ThsIndustryCapture.all_board_to_sql(ths)
 
 # em = EmZdtCapture()

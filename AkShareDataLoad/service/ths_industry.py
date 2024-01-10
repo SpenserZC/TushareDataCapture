@@ -3,7 +3,7 @@ import time
 import akshare as ak
 import socket
 import numpy as np
-from models.df_mysql import DataLoad
+from AkShareDataLoad.connutil.df_mysql import DataLoad
 
 socket.setdefaulttimeout(5)
 dl = DataLoad()
